@@ -1,0 +1,335 @@
+/* Youth.module.css */
+
+:root {
+  --black: #0d0c0b;
+  --white: #f1eee7;
+  --primary: #0d0c0b;
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --font-family: "Inter", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--black);
+  overflow: hidden;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  user-select: none;
+}
+
+.intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1.25rem;
+  background: var(--white);
+  transition: opacity 0.5s var(--ease);
+  z-index: 10;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.word {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0.1em 0;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--primary);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1.2s var(--ease);
+}
+
+.word.active {
+  color: var(--black);
+  -webkit-text-stroke: 1.5px transparent;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subtext {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 2.5rem;
+  color: var(--black);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.8s var(--ease) 0.9s;
+}
+
+.subtext.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta {
+  margin-top: 3.5rem;
+  padding: 1em 3em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: transparent;
+  border: 2px solid var(--black);
+  border-radius: 100px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.7s var(--ease) 1.5s, background 0.3s ease,
+    color 0.3s ease;
+  z-index: 3;
+  user-select: none;
+}
+
+.cta.active {
+  opacity: 1;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: var(--black);
+  color: var(--white);
+}
+
+.info {
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+  overflow-y: auto;
+  z-index: 5;
+  max-width: 960px;
+  margin: 0 auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.info::-webkit-scrollbar {
+  display: none;
+}
+
+.info.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.info h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+}
+
+.info p {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  color: var(--black);
+  max-width: 680px;
+  margin-inline: auto;
+  line-height: 1.4;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.feature {
+  border: 1px solid var(--black);
+  border-radius: 1.5rem;
+  padding: 1.5rem 1.25rem;
+  text-align: left;
+  background: #fff;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.feature:hover {
+  background-color: #f9f7f3;
+}
+
+.feature h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.buttonGroup button,
+.buttonGroup a {
+  padding: 0.75em 2em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 100px;
+  border: 2px solid var(--black);
+  background: transparent;
+  color: var(--black);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  user-select: none;
+}
+
+.buttonGroup button:hover,
+.buttonGroup a:hover,
+.buttonGroup button:focus-visible,
+.buttonGroup a:focus-visible {
+  background: var(--black);
+  color: var(--white);
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 12, 11, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.modalOverlay.active {
+  display: flex;
+}
+
+.modalContent {
+  background: var(--white);
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  text-align: left;
+}
+
+.modalContent h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--black);
+  text-align: center;
+}
+
+.modalContent label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--black);
+}
+
+.modalContent :global(input),
+.modalContent :global(select) {
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1.25rem;
+  border: 1.5px solid var(--black);
+  border-radius: 0.5rem;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  outline-offset: 2px;
+}
+
+.modalContent :global(input:focus),
+.modalContent :global(select:focus) {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.submitBtn {
+  width: 100%;
+  background: var(--black);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.75em;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitBtn:hover,
+.submitBtn:focus-visible {
+  background: #333;
+}
+
+.modalClose {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--black);
+  line-height: 1;
+}
+
+@media (max-width: 480px) {
+  .word {
+    font-size: clamp(2rem, 14vw, 4.5rem);
+    -webkit-text-stroke: 1px var(--primary);
+  }
+
+  .subtext {
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+  }
+
+  .cta,
+  .buttonGroup button,
+  .buttonGroup a {
+    font-size: 0.8rem;
+    padding: 0.75em 1.6em;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+}

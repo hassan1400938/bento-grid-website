@@ -1,0 +1,133 @@
+/* styles/PrivacyPolicy.module.css */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+.bodyWrapper {
+  margin: 0;
+  background: #f1eee7;
+  color: #0d0c0b;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  padding: 4rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.main {
+  max-width: 640px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.07);
+  padding: 3.5rem 3rem 4rem;
+  user-select: none;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 2.5rem;
+  margin: 0 0 2.5rem 0;
+  text-align: center;
+  letter-spacing: -0.025em;
+  color: #0d0c0b;
+  user-select: text;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.accordionItem + .accordionItem {
+  margin-top: 1.25rem;
+}
+
+.accordionButton {
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #0d0c0b;
+  text-align: left;
+  width: 100%;
+  padding: 1rem 0;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  outline-offset: 3px;
+  transition: color 0.25s ease;
+}
+
+.accordionButton:hover,
+.accordionButton:focus {
+  color: #66605c;
+}
+
+.accordionButton::after {
+  content: "+";
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #0d0c0b;
+  transition: transform 0.25s ease;
+  user-select: none;
+}
+
+.accordionButton[aria-expanded="true"]::after {
+  content: "−";
+}
+
+.accordionPanel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 0;
+  color: #3a3a37dd;
+  font-weight: 400;
+  font-size: 1rem;
+  user-select: text;
+}
+
+.accordionPanelOpen {
+  padding: 0.8rem 0 1.6rem 0;
+}
+
+.accordionPanel p,
+.accordionPanel ul {
+  margin: 0.6rem 0 1.1rem 1.2rem;
+  line-height: 1.5;
+}
+
+.accordionPanel ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.accordionPanel ul li {
+  margin-bottom: 0.45rem;
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 2.5rem 1.5rem 3rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .accordionButton {
+    font-size: 1.1rem;
+  }
+
+  .accordionPanel {
+    font-size: 0.95rem;
+  }
+}

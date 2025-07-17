@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dodgeball Clinic</title>
+  <style>
+    /* Variables for easy theming */
+    :root {
+      --card-width: 160px;
+      --card-height: 344px;
+      --card-radius: 24px;
+      --card-padding: 16px;
+      --spacing: 12px;
+      --blur-bg: rgba(255, 255, 255, 0.90);
+      --shadow-light: rgba(0, 0, 0, 0.05);
+      --border-light: rgba(0, 0, 0, 0.06);
+      --accent: #E67E22;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #fbfbfd 0%, #f2f2f7 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #1d1d1f;
+    }
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+    .card-container {
+      width: var(--card-width);
+      height: var(--card-height);
+      perspective: 1000px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+      border-radius: var(--card-radius);
+    }
+
+    .card-container:hover .card {
+      transform: rotateY(180deg) scale(1.02);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      background: var(--blur-bg);
+      backdrop-filter: blur(20px);
+      border-radius: var(--card-radius);
+      padding: var(--card-padding);
+      box-shadow: 0 8px 24px var(--shadow-light);
+      border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    .header {
+      margin-bottom: var(--spacing);
+    }
+
+    h1 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #86868b;
+      opacity: 0.9;
+    }
+
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing);
+      margin-bottom: var(--spacing);
+    }
+
+    .detail-text {
+      font-size: 0.875rem;
+      color: #1d1d1f;
+      line-height: 1.4;
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .duration {
+      background: rgba(230, 126, 34, 0.1);
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+
+    .cta {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.2px;
+      margin-top: auto;
+      padding-top: var(--spacing);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing);
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #515154;
+    }
+
+    .player-selector {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .player-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid #d2d2d7;
+      background: #fff;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .player-btn:active {
+      background: #f0f0f3;
+    }
+
+    .player-count {
+      font-size: 1rem;
+      font-weight: 500;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    input[type="date"],
+    input[type="email"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #d2d2d7;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: inherit;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .submit-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #cf6f1f;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card">
+      <!-- Front Face -->
+      <div class="card-face card-front">
+        <div class="header">
+          <h1>Dodgeball Clinic</h1>
+          <div class="tagline">Fast. Fun. Fierce.</div>
+        </div>
+        <div class="details">
+          <div class="detail-text"><span class="highlight">15+ players</span></div>
+          <div class="detail-text">from <span class="highlight">€15 pp</span></div>
+          <div class="detail-text"><span class="duration">90+ min</span> dynamic session</div>
+          <div class="detail-text">Venue & equipment <span class="highlight">included</span></div>
+        </div>
+        <div class="cta">Hover to request →</div>
+      </div>
+      <!-- Back Face -->
+      <div class="card-face card-back">
+        <div class="header">
+          <h1>Request Clinic</h1>
+          <div class="tagline">Complete your request</div>
+        </div>
+        <div class="form-group">
+          <label for="players">Number of players</label>
+          <div class="player-selector">
+            <button class="player-btn" id="decreaseBtn">−</button>
+            <div class="player-count" id="playerCount">15</div>
+            <button class="player-btn" id="increaseBtn">+</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="date">Preferred date</label>
+          <input type="date" id="date" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Your email</label>
+          <input type="email" id="email" required placeholder="email@example.com">
+        </div>
+        <button type="button" class="submit-btn" id="submitBtn">Submit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const playerCountEl = document.getElementById('playerCount');
+    const decreaseBtn = document.getElementById('decreaseBtn');
+    const increaseBtn = document.getElementById('increaseBtn');
+    let players = 15;
+
+    decreaseBtn.addEventListener('click', () => {
+      if (players > 15) {
+        players--;
+        playerCountEl.textContent = players;
+      }
+    });
+    increaseBtn.addEventListener('click', () => {
+      if (players < 30) {
+        players++;
+        playerCountEl.textContent = players;
+      }
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', e => {
+      e.preventDefault();
+      const dateVal = document.getElementById('date').value;
+      const emailVal = document.getElementById('email').value;
+      if (!dateVal || !emailVal) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      const formattedDate = new Date(dateVal).toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+      const subject = `Dodgeball Clinic Request for ${formattedDate}`;
+      const body = `Hi Gron's Dodgeball Team,\n\nI would like to request a dodgeball clinic:\n\n• Players: ${players}\n• Date: ${formattedDate}\n• Contact: ${emailVal}\n\nPlease confirm availability.\n\nBest regards,`;
+      const mailtoUrl = `mailto:gronsdodgeball@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(mailtoUrl);
+    });
+  </script>
+</body>
+</html>

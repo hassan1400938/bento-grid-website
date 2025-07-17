@@ -1,0 +1,161 @@
+.contact {
+  --bg: #f1eee7;
+  --text: #0d0c0b;
+  --accent: #f57f3b;
+  --muted: #7d7c77;
+  --input-border: #0d0c0b;
+  --placeholder: #aca49c;
+  --placeholder-focus: #bbb5af;
+  --placeholder-hover: #e2dedb;
+  --placeholder-hover-focus: #cbc6c1;
+}
+
+.container {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoHeader {
+  background-image: url(https://rfdd.ru/assets/img/site/bg_logo--header--color.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 30px;
+  width: 125px;
+  margin-top: 40px;
+}
+
+.sectionTitle {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  color: var(--text);
+  background-color: var(--bg);
+  padding: 24px 0 10px;
+  text-align: center;
+}
+
+.form {
+  width: 500px;
+  max-width: 90%;
+  margin: 20px auto 60px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form input,
+.form textarea {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95em;
+  padding: 14px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  outline: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.form textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--placeholder);
+}
+
+.form input:focus::placeholder,
+.form textarea:focus::placeholder {
+  color: var(--placeholder-focus);
+}
+
+.form input:hover::placeholder,
+.form textarea:hover::placeholder {
+  color: var(--placeholder-hover);
+}
+
+.form input:hover:focus::placeholder,
+.form textarea:hover:focus::placeholder {
+  color: var(--placeholder-hover-focus);
+}
+
+.form input:hover,
+.form textarea:hover {
+  border-color: var(--input-border);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--input-border);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.submit {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95em;
+  padding: 14px;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.submit:hover {
+  background: var(--accent);
+}
+
+.thankyou {
+  width: 500px;
+  max-width: 90%;
+  margin: 20px auto 60px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+  align-items: center;
+}
+
+.thankyou h2 {
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+  .logoHeader {
+    margin-top: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 13px;
+  }
+}
+:global(#submit),
+:global(#send-another) {
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+:global(#submit:hover),
+:global(#send-another:hover) {
+  background: var(--accent);
+}

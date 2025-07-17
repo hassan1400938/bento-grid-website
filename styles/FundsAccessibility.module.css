@@ -1,0 +1,248 @@
+:root {
+  --bg: #f1eee7;
+  --text: #0d0c0b;
+  --accent: #f57f3b;
+  --muted: #7d7c77;
+  --green: #3ab97a;
+  --black: #111111;
+}
+
+.container {
+  background: var(--bg);
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  padding: 40px 20px;
+}
+
+.sectionTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.plansWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1000px;
+}
+
+.plan {
+  background: #fff;
+  outline: 1px solid var(--black);
+  border-radius: 20px;
+  padding: 26px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: space-between;
+}
+
+.plan h2 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.price span {
+  font-size: 14px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.billed {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.features {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.features li {
+  font-size: 13px;
+  margin-bottom: 10px;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: bold;
+}
+
+.popularTag {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.getStarted {
+  background: var(--black);
+  color: white;
+  padding: 12px;
+  text-align: center;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: auto;
+  text-decoration: none;
+  display: block;
+  border: none;
+}
+
+.getStarted:hover {
+  background: var(--accent);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+}
+
+.footer a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.footer a:hover::after {
+  width: 100%;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal > div {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.closeModal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal h2 {
+  margin-bottom: 16px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.modal form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.modal form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.modal form button[type="submit"] {
+  background: var(--black);
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal form button[type="submit"]:hover {
+  background: var(--accent);
+}
+
+.thankYou {
+  display: block;
+  text-align: center;
+  padding: 20px 0;
+  font-weight: 700;
+  color: var(--green);
+  font-size: 16px;
+}
+
+@media (max-width: 700px) {
+  .plans {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -1,0 +1,174 @@
+:root {
+  --bg: #f1eee7;
+  --text: #0d0c0b;
+  --accent: #f57f3b;
+  --muted: #7d7c77;
+  --green: #3ab97a;
+  --black: #111111;
+}
+.pricingPlan {
+  font-family: "Inter", sans-serif;
+  padding: 40px 20px;
+}
+.sectionTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.toggle button {
+  flex: 1;
+  max-width: 140px;
+  background: none;
+  border: 2px solid var(--black);
+  color: var(--black);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  border-radius: 999px;
+  margin: 0 6px;
+}
+.toggle button.active {
+  background: var(--black);
+  color: #fff;
+}
+
+.plansWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.plans {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1000px;
+}
+.active {
+  display: flex;
+  justify-content: center;
+}
+
+.plan {
+  background: #fff;
+  outline: 1px solid var(--black);
+  border-radius: 20px;
+  padding: 26px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.legend {
+  background: #f8f6f2;
+}
+
+.plan h2 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.price {
+  font-size: 34px;
+  font-weight: 800;
+  text-align: center;
+}
+.price span {
+  font-size: 14px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.billed {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.features {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+.features li {
+  font-size: 13px;
+  margin-bottom: 10px;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.4;
+}
+.features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--green);
+  font-weight: bold;
+}
+
+.popularTag {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.getStarted {
+  background: var(--black);
+  color: white;
+  padding: 12px;
+  text-align: center;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: auto;
+  text-decoration: none;
+  display: block;
+  border: none;
+}
+.getStarted:hover {
+  background: var(--accent);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.footer strong {
+  color: var(--black);
+}
+
+@media (max-width: 700px) {
+  .plans {
+    flex-direction: column;
+    align-items: center;
+  }
+}

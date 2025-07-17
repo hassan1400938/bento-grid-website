@@ -1,0 +1,190 @@
+/* CodeOfConduct.module.css */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  background: #f1eee7;
+  color: #0d0c0b;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  padding: 4rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+.container {
+  max-width: 640px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.07);
+  padding: 3.5rem 3rem 4rem;
+  user-select: none;
+}
+
+.heading {
+  font-weight: 600;
+  font-size: 2.5rem;
+  margin: 0 0 2.5rem 0;
+  text-align: center;
+  letter-spacing: -0.025em;
+  color: #0d0c0b;
+  user-select: text;
+}
+
+.accordionItem + .accordionItem {
+  margin-top: 1.25rem;
+}
+
+.accordionButton {
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #0d0c0b;
+  text-align: left;
+  width: 100%;
+  padding: 1rem 0;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  outline-offset: 3px;
+  transition: color 0.25s ease;
+}
+
+.accordionButton:hover,
+.accordionButton:focus {
+  color: #66605c;
+}
+
+.accordionButton::after {
+  content: "+";
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #0d0c0b;
+  transition: transform 0.25s ease;
+  user-select: none;
+}
+
+.accordionButton[aria-expanded="true"]::after {
+  content: "−";
+}
+
+.accordionPanel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 0;
+  color: #3a3a37dd;
+  font-weight: 400;
+  font-size: 1rem;
+  user-select: text;
+}
+
+.accordionPanelOpen {
+  padding: 0.8rem 0 1.6rem 0;
+}
+
+.accordionPanel p,
+.accordionPanel ul {
+  margin: 0.6rem 0 1.1rem 1.2rem;
+  line-height: 1.5;
+}
+
+.accordionPanel ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+}
+
+.accordionPanel ul li {
+  margin-bottom: 0.45rem;
+}
+
+.quickStart {
+  margin-top: 4rem;
+  border-top: 1px solid #ddd;
+  padding-top: 3rem;
+  user-select: text;
+}
+
+.quickStartTitle {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.8rem;
+  color: #0d0c0b;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.quickStartList {
+  max-width: 580px;
+  margin: 0 auto;
+  padding-left: 1.4rem;
+  list-style-type: disc;
+  color: #3a3a37cc;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.quickStartList li {
+  margin-bottom: 0.7rem;
+}
+
+.quickStartParagraph {
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: #3a3a37cc;
+  max-width: 580px;
+  margin: 2rem auto 0 auto;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.quickStartLink {
+  color: #0d0c0b;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.quickStartLink:hover,
+.quickStartLink:focus {
+  color: #f97316;
+  outline: none;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2.5rem 1.5rem 3rem;
+  }
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .accordionButton {
+    font-size: 1.1rem;
+  }
+
+  .accordionPanel {
+    font-size: 0.95rem;
+  }
+
+  .quickStartTitle {
+    font-size: 1.6rem;
+  }
+
+  .quickStartList {
+    font-size: 0.95rem;
+  }
+}

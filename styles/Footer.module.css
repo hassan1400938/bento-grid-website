@@ -1,0 +1,108 @@
+.main {
+  --bg: #f1eee7;
+  --text: #0d0c0b;
+  --accent: #f57f3b;
+  --muted: #7d7c77;
+}
+
+.footer {
+  background: var(--bg);
+  border-top: 1px solid #ddd;
+  padding: 48px 32px 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.footerGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 32px;
+}
+
+.footerLogo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footerLogo img {
+  width: 150px;
+  height: auto;
+}
+
+.footerLinks h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.footerLinks a {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--text);
+  margin-bottom: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footerLinks a:hover {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+.footerContact p {
+  font-size: 14px;
+  margin: 0 0 10px 0;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 16px;
+}
+
+.socialIcons a img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+}
+
+.socialIcons a:hover img {
+  transform: scale(1.1);
+}
+
+.footerBottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+  flex-wrap: nowrap;
+}
+
+.paymentIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.paymentIcons img {
+  height: 20px;
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .footerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .paymentIcons {
+    margin-top: 8px;
+  }
+}

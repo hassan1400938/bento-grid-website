@@ -1,0 +1,20 @@
+[
+  { "id": 1, "title": "Dodgeball", "color": "bg-orange-500", "emoji": "🏐", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 2, "title": "WhatsApp", "color": "bg-green-500", "emoji": "💬", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 3, "title": "Schedule", "color": "bg-white text-black", "emoji": "📅", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 4, "title": "Clinic Info", "color": "bg-white text-black", "emoji": "📋", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-4" },
+  { "id": 5, "title": "Discord", "color": "bg-indigo-600", "emoji": "💻", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 6, "title": "Pricing", "color": "bg-orange-400", "emoji": "💳", "col": "col-span-6 md:col-span-8 lg:col-span-6", "row": "row-span-2" },
+  { "id": 7, "title": "Stats", "color": "bg-purple-500", "emoji": "📈", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 8, "title": "Coach", "color": "bg-blue-600", "emoji": "🧑‍🏫", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 9, "title": "Shop", "color": "bg-pink-500", "emoji": "🛍️", "col": "col-span-6 md:col-span-8 lg:col-span-6", "row": "row-span-2" },
+  { "id": 10, "title": "Photos", "color": "bg-yellow-400", "emoji": "📸", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 11, "title": "FAQs", "color": "bg-gray-200 text-black", "emoji": "❓", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-4" },
+  { "id": 12, "title": "Contact", "color": "bg-blue-300", "emoji": "📞", "col": "col-span-6 md:col-span-8 lg:col-span-6", "row": "row-span-2" },
+  { "id": 13, "title": "Stats", "color": "bg-purple-500", "emoji": "📈", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 14, "title": "Coach", "color": "bg-blue-600", "emoji": "🧑‍🏫", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 15, "title": "Shop", "color": "bg-pink-500", "emoji": "🛍️", "col": "col-span-6 md:col-span-8 lg:col-span-6", "row": "row-span-2" },
+  { "id": 16, "title": "Photos", "color": "bg-yellow-400", "emoji": "📸", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-2" },
+  { "id": 17, "title": "FAQs", "color": "bg-gray-200 text-black", "emoji": "❓", "col": "col-span-6 md:col-span-4 lg:col-span-3", "row": "row-span-4" },
+  { "id": 18, "title": "Contact", "color": "bg-blue-300", "emoji": "📞", "col": "col-span-6 md:col-span-8 lg:col-span-6", "row": "row-span-2" }
+]

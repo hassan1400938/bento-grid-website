@@ -1,0 +1,62 @@
+.parallaxSection {
+  height: 100vh;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 40px 20px;
+}
+
+.partnersTitle {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.logoRows {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  width: 100%;
+}
+
+.rowWrapper {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  will-change: transform;
+  padding: 0 50vw;
+}
+
+.rowWrapper img {
+  width: 100px;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.rowWrapper img:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+  .rowWrapper img {
+    width: 80px;
+  }
+
+  .partnersTitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  .logoRows {
+    gap: 20px;
+  }
+}

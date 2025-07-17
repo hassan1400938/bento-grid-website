@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Widget</title>
+    <style>
+        :root {
+            --discord-blurple: #5865F2;
+            --discord-dark: #36393F;
+            --discord-light: #FFFFFF;
+            --discord-gray: #4F545C;
+            --discord-green: #57F287;
+        }
+          html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Helvetica, sans-serif;
+        }
+        
+        .widget-container {
+            width: 160px;
+            height: 160px;
+            perspective: 800px;
+        }
+        
+        .discord-widget {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 24px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+        
+        .widget-container:hover .discord-widget {
+            transform: rotateY(180deg);
+        }
+        
+        .widget-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .front {
+            background: linear-gradient(135deg, var(--discord-blurple) 0%, #454FBF 100%);
+            cursor: pointer;
+        }
+        
+        .back {
+            background: var(--discord-dark);
+            transform: rotateY(180deg);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            -webkit-mask: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.03-.05-.07-.03-.12-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.02-.02-.03-.04-.03zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z'/></svg>") no-repeat center;
+            mask: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.03-.05-.07-.03-.12-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.02-.02-.03-.04-.03zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z'/></svg>") no-repeat center;
+            -webkit-mask-size: 100%;
+            mask-size: 100%;
+        }
+        
+        .action-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .discord-btn {
+            width: 100%;
+            padding: 10px 0;
+            border-radius: 24px;
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .discord-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .discord-btn:hover::after {
+            opacity: 1;
+        }
+        
+        .primary-btn {
+            background: var(--discord-blurple);
+            box-shadow: 0 2px 4px rgba(88, 101, 242, 0.2);
+        }
+        
+        .primary-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(88, 101, 242, 0.3);
+        }
+        
+        .secondary-btn {
+            background: var(--discord-gray);
+            box-shadow: 0 2px 4px rgba(79, 84, 92, 0.2);
+        }
+        
+        .secondary-btn:hover {
+            background: #5D6269;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 84, 92, 0.3);
+        }
+        
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .back-header {
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .discord-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .discord-btn:hover::before {
+            opacity: 0.6;
+            animation: shine 1.5s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--discord-dark);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            color: white;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--discord-green);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .server-details {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .join-btn {
+            background: var(--discord-blurple);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <div class="discord-widget">
+            <div class="widget-face front">
+                <div class="logo"></div>
+            </div>
+            <div class="widget-face back">
+                <div class="back-header">Join Our Server</div>
+                <div class="action-buttons">
+                    <a href="https://discord.gg/qw6RUxxG" target="_blank" class="discord-btn primary-btn">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Join Now
+                    </a>
+                    <button class="discord-btn secondary-btn" id="moreInfoBtn">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        More Info
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Info Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Server Information</div>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="server-details">
+                <p><strong>Welcome to our community!</strong></p>
+                <p>• Friendly and active members</p>
+                <p>• Regular events and discussions</p>
+                <p>• Helpful support channels</p>
+                <p>• Custom roles and perks</p>
+            </div>
+            <a href="https://discord.gg/qw6RUxxG" target="_blank" class="join-btn">
+                Join Server Now
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const moreInfoBtn = document.getElementById('moreInfoBtn');
+        const closeModal = document.getElementById('closeModal');
+        const infoModal = document.getElementById('infoModal');
+
+        moreInfoBtn.addEventListener('click', () => {
+            infoModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
