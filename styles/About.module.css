@@ -4,7 +4,7 @@
   --muted: #7d7c77;
   --black: #111111;
 
-  background: var(--bg);
+  /* background: var(--bg); */
   color: var(--text);
   font-family: "Inter", sans-serif;
   padding: 40px 20px;

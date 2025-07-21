@@ -8,7 +8,7 @@
 }
 
 .page {
-  background: var(--bg);
+  /* background: var(--bg); */
   color: var(--text);
   font-family: "Inter", sans-serif;
   padding: 40px 20px;

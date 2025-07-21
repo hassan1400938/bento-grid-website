@@ -1,6 +1,11 @@
-// Locations.jsx
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/Locations.module.css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const LOCATIONS = [
   {
@@ -29,6 +34,9 @@ export default function Locations() {
   const [modalOpen, setModalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const cardRefs = useRef([]);
+  const modalRef = useRef(null);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -51,91 +59,203 @@ export default function Locations() {
     }
   };
 
+  useEffect(() => {
+    // Animate each card on scroll
+    const ctx = gsap.context(() => {
+      cardRefs.current.forEach((card, i) => {
+        gsap.fromTo(
+          card,
+          { autoAlpha: 0, y: 50, scale: 0.95 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+              markers: false, // change to true to debug
+            },
+            delay: i * 0.15,
+          }
+        );
+      });
+    }, cardRefs);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    // Animate modal open/close fade in/out
+    if (modalOpen && modalRef.current) {
+      gsap.fromTo(
+        modalRef.current,
+        { autoAlpha: 0, scale: 0.9 },
+        { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+      );
+    }
+  }, [modalOpen]);
+
   return (
-    <div className={styles.locations}>
-      <div className={styles.page}>
-        <h2 className={styles.sectionTitle}>OUR LOCATIONS</h2>
+    <div className="relative z-[50]">
+      <div className="absolute -top-[3px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
+        <svg
+          viewBox="0 0 1440 14"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,7
+       Q15,3.5 30,7
+       T60,7
+       T90,7
+       T120,7
+       T150,7
+       T180,7
+       T210,7
+       T240,7
+       T270,7
+       T300,7
+       T330,7
+       T360,7
+       T390,7
+       T420,7
+       T450,7
+       T480,7
+       T510,7
+       T540,7
+       T570,7
+       T600,7
+       T630,7
+       T660,7
+       T690,7
+       T720,7
+       T750,7
+       T780,7
+       T810,7
+       T840,7
+       T870,7
+       T900,7
+       T930,7
+       T960,7
+       T990,7
+       T1020,7
+       T1050,7
+       T1080,7
+       T1110,7
+       T1140,7
+       T1170,7
+       T1200,7
+       T1230,7
+       T1260,7
+       T1290,7
+       T1320,7
+       T1350,7
+       T1380,7
+       T1410,7
+       T1440,7
+       L1440,14
+       L0,14
+       Z"
+            fill="#F1EEE7"
+          />
+        </svg>
+      </div>
 
-        <div className={styles.plans}>
-          {LOCATIONS.map((loc, i) => (
-            <div key={i} className={styles.card}>
-              {loc.tag && <div className={styles.tag}>{loc.tag}</div>}
-              <h3 className={styles.city}>{loc.name}</h3>
-              <div className={styles.map}>
-                <iframe
-                  src={loc.src}
-                  loading="lazy"
-                  allowFullScreen
-                  className={styles.iframe}
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-                <div className={styles.fallback}>
-                  <p>Interactive map couldn't load</p>
-                  <a href={loc.fallback} target="_blank" rel="noreferrer">
-                    View {loc.name} on Google Maps
-                  </a>
-                </div>
-              </div>
-              <p className={styles.desc}>{loc.desc}</p>
-            </div>
-          ))}
+      <div className={styles.locations}>
+        <div className={styles.page}>
+          <h2 className={styles.sectionTitle}>OUR LOCATIONS</h2>
 
-          <div className={`${styles.card} ${styles.request}`}>
-            <h3>Your City Next?</h3>
-            <p>
-              Want dodgeball in your town? Let us know where we should launch
-              next.
-            </p>
-            <button
-              className={styles.button}
-              onClick={() => {
-                setSubmitted(false);
-                setModalOpen(true);
-              }}
-            >
-              Request a City
-            </button>
-          </div>
-        </div>
-
-        {modalOpen && (
-          <div
-            className={styles.modalOverlay}
-            onClick={(e) => e.target === e.currentTarget && setModalOpen(false)}
-          >
-            <div className={styles.modal}>
-              <span
-                className={styles.close}
-                onClick={() => setModalOpen(false)}
+          <div className={styles.plans}>
+            {LOCATIONS.map((loc, i) => (
+              <div
+                key={i}
+                className={styles.card}
+                ref={(el) => (cardRefs.current[i] = el)}
+                style={{ transformOrigin: "center center" }}
               >
-                &times;
-              </span>
-              <h3 className={styles.modalTitle}>Request a New Location</h3>
-              {!submitted ? (
-                <form className={styles.form} onSubmit={onSubmit}>
-                  <label className={styles.label} htmlFor="city">
-                    City Name*
-                  </label>
-                  <input
-                    className={styles.input}
-                    id="city"
-                    name="city"
-                    type="text"
-                    required
-                    placeholder="Which city should we expand to?"
-                  />
-                  <button className={styles.submit} type="submit">
-                    Submit Request
-                  </button>
-                </form>
-              ) : (
-                <div className={styles.success}>
-                  Thank you! Your request has been submitted.
+                {loc.tag && <div className={styles.tag}>{loc.tag}</div>}
+                <h3 className={styles.city}>{loc.name}</h3>
+                <div className={styles.map}>
+                  <iframe
+                    src={loc.src}
+                    loading="lazy"
+                    allowFullScreen
+                    className={styles.iframe}
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                  <div className={styles.fallback}>
+                    <p>Interactive map couldn't load</p>
+                    <a href={loc.fallback} target="_blank" rel="noreferrer">
+                      View {loc.name} on Google Maps
+                    </a>
+                  </div>
                 </div>
-              )}
+                <p className={styles.desc}>{loc.desc}</p>
+              </div>
+            ))}
+
+            <div className={`${styles.card} ${styles.request}`}>
+              <h3>Your City Next?</h3>
+              <p>
+                Want dodgeball in your town? Let us know where we should launch
+                next.
+              </p>
+              <button
+                className={styles.button}
+                onClick={() => {
+                  setSubmitted(false);
+                  setModalOpen(true);
+                }}
+              >
+                Request a City
+              </button>
             </div>
           </div>
-        )}
+
+          {modalOpen && (
+            <div
+              className={styles.modalOverlay}
+              onClick={(e) =>
+                e.target === e.currentTarget && setModalOpen(false)
+              }
+            >
+              <div className={styles.modal} ref={modalRef}>
+                <span
+                  className={styles.close}
+                  onClick={() => setModalOpen(false)}
+                >
+                  &times;
+                </span>
+                <h3 className={styles.modalTitle}>Request a New Location</h3>
+                {!submitted ? (
+                  <form className={styles.form} onSubmit={onSubmit}>
+                    <label className={styles.label} htmlFor="city">
+                      City Name*
+                    </label>
+                    <input
+                      className={styles.input}
+                      id="city"
+                      name="city"
+                      type="text"
+                      required
+                      placeholder="Which city should we expand to?"
+                    />
+                    <button className={styles.submit} type="submit">
+                      Submit Request
+                    </button>
+                  </form>
+                ) : (
+                  <div className={styles.success}>
+                    Thank you! Your request has been submitted.
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

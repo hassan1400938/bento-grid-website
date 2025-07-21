@@ -8,7 +8,7 @@
 }
 
 .container {
-  background: var(--bg);
+  /* background: var(--bg); */
   font-family: "Inter", sans-serif;
   color: var(--text);
   padding: 40px 20px;

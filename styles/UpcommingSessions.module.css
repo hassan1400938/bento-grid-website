@@ -17,6 +17,7 @@
   padding: 3rem 1rem 5rem;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 }
 
 .sectionTitle {
@@ -41,7 +42,7 @@
 .timelineWrapper {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 910px;
 }
 
 .timeline {

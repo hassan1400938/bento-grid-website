@@ -9,3 +9,45 @@ body {
   background-color: #f5e2cf;
   color: #ffffff;
 }
+
+
+#loader {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: slideUp 0.8s ease-in-out forwards;
+  animation-delay: 2s; /* after fill completes */
+}
+
+/* === LOGO === */
+.logo-loader {
+  width: 200px;
+  height: auto;
+}
+
+/* === INITIAL OUTLINE STYLE === */
+.logo-loader .cls-1 {
+  stroke: white;
+  stroke-width: 2;
+  fill: white;
+  clip-path: inset(100% 0 0 0); /* Hidden at bottom */
+  animation: fillUp 2s ease forwards;
+}
+
+
+@keyframes fillUp {
+  to {
+    clip-path: inset(0 0 0 0); /* Reveal top-to-bottom */
+  }
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(-100%);
+  }
+}
+

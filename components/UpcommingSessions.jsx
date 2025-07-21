@@ -1,5 +1,10 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "../styles/UpcommingSessions.module.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const UpcomingSessions = () => {
   const timelineRef = useRef(null);
@@ -7,6 +12,7 @@ const UpcomingSessions = () => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const cardRefs = useRef([]);
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
@@ -14,8 +20,8 @@ const UpcomingSessions = () => {
   }, []);
 
   const fetchSessions = async () => {
-    const apiKey = "AIzaSyCAllpV5h0oZ0Pklsq4_CBjaCt-8HDhSuY";
-    const calendarId = "gronsdodgeball@gmail.com";
+    const apiKey = process.env.GOOGLE_API_KEY;
+    const calendarId = process.env.GOOGLE_CALENDAR_ID;
     const timeMin = new Date().toISOString();
 
     try {
@@ -46,6 +52,7 @@ const UpcomingSessions = () => {
       timeZone: "Europe/Amsterdam",
     });
 
+  // 🎯 Smooth drag-to-scroll using gsap
   const handleMouseDown = (e) => {
     isDragging.current = true;
     timelineRef.current.classList.add(styles.dragging);
@@ -67,8 +74,14 @@ const UpcomingSessions = () => {
     if (!isDragging.current) return;
     e.preventDefault();
     const x = e.pageX - timelineRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.2; // drag speed
-    timelineRef.current.scrollLeft = scrollLeft.current - walk;
+    const walk = (x - startX.current) * 1.2;
+
+    // Smooth scroll with gsap
+    gsap.to(timelineRef.current, {
+      scrollLeft: scrollLeft.current - walk,
+      duration: 0.3,
+      ease: "power2.out",
+    });
   };
 
   const handleScroll = () => {
@@ -79,12 +92,53 @@ const UpcomingSessions = () => {
     }
   };
 
+  // 🎬 Animate on scroll
+  useEffect(() => {
+    if (!timelineRef.current) return;
+
+    gsap.fromTo(
+      timelineRef.current,
+      { opacity: 0, y: 60 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: timelineRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    gsap.fromTo(
+      cardRefs.current,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: timelineRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+  }, [sessions]);
+
   return (
     <main className={`${styles.upcomming} ${styles.main}`}>
-      <div className={styles.sectionTitle}>UPCOMING SESSIONS</div>
-      <p className={styles.subtitle}>Swipe or scroll through upcoming games</p>
+      <div className={`${styles.sectionTitle}  relative z-50`}>
+        UPCOMING SESSIONS
+      </div>
+      <p className={`${styles.subtitle}  relative z-50`}>
+        Swipe or scroll through upcoming games
+      </p>
 
-      <div className={styles.timelineWrapper}>
+      <div className={`${styles.timelineWrapper}  relative z-50`}>
         <section
           ref={timelineRef}
           className={styles.timeline}
@@ -118,7 +172,12 @@ const UpcomingSessions = () => {
                 .includes("kardingerweg");
 
               return (
-                <article key={i} className={styles.card} tabIndex={0}>
+                <article
+                  key={i}
+                  ref={(el) => (cardRefs.current[i] = el)}
+                  className={styles.card}
+                  tabIndex={0}
+                >
                   <div className={styles.dateRow}>
                     <div className={styles.dateSmall}>{formatDate(start)}</div>
                     {isKardingerweg ? (
