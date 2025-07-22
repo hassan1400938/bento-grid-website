@@ -1,7 +1,17 @@
 // // tailwind.config.js
 // /** @type {import('tailwindcss').Config} */
 // module.exports = {
-//   content: ['./app/**/*.{js,jsx}', './components/**/*.{js,jsx}'],
+//   content: {
+//     files: ['./app/**/*.{js,jsx}', './components/**/*.{js,jsx}', './pages/**/*.{js,jsx}'],
+//     safelist: [
+//       {
+//         pattern: /col-span-(3|6|12)/,
+//       },
+//       {
+//         pattern: /row-span-(3|6)/,
+//       },
+//     ],
+//   },
 //   theme: {
 //     extend: {
 //       gridTemplateColumns: {
@@ -10,12 +20,4 @@
 //     },
 //   },
 //   plugins: [],
-// safelist: [
-//   {
-//     pattern: /col-span-(3|6|12)/,
-//   },
-//   {
-//     pattern: /row-span-(3|6)/,
-//   },
-// ],
-// }
+// };

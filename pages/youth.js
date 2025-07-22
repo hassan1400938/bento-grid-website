@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/Youth.module.css";
-import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
-
+import '../app/globals.css'
 export default function YouthPage() {
   const [showInfo, setShowInfo] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -106,7 +105,6 @@ export default function YouthPage() {
 
   return (
     <>
-      <NavBar />
       <main className={styles.app}>
         {/* ✅ Canvas with working opacity */}
         <canvas
@@ -117,27 +115,15 @@ export default function YouthPage() {
             mixBlendMode: "normal",
           }}
         />
-
-        <section
-          className={`${styles.intro} ${!showInfo ? "" : styles.hidden}`}
-        >
-          <h1 className={styles.word} ref={(el) => (wordsRef.current[0] = el)}>
-            Dodgeball
-          </h1>
-          <h1 className={styles.word} ref={(el) => (wordsRef.current[1] = el)}>
-            Youth
-          </h1>
-          <h1 className={styles.word} ref={(el) => (wordsRef.current[2] = el)}>
-            Is Here
-          </h1>
+<NavBar />
+        <section className={`${styles.intro} ${!showInfo ? "" : styles.hidden}`}>
+          <h1 className={styles.word} ref={(el) => (wordsRef.current[0] = el)}>Dodgeball</h1>
+          <h1 className={styles.word} ref={(el) => (wordsRef.current[1] = el)}>Youth</h1>
+          <h1 className={styles.word} ref={(el) => (wordsRef.current[2] = el)}>Is Here</h1>
           <p className={styles.subtext} ref={subtextRef}>
             Ages 4–12 & 12–16 · Groningen
           </p>
-          <button
-            ref={ctaRef}
-            className={styles.cta}
-            onClick={() => setShowInfo(true)}
-          >
+          <button ref={ctaRef} className={styles.cta} onClick={() => setShowInfo(true)}>
             Discover More
           </button>
         </section>
@@ -148,9 +134,8 @@ export default function YouthPage() {
         >
           <h2>Why Parents Choose Our Program</h2>
           <p>
-            Youth dodgeball in Groningen is about more than just fun. It’s a
-            space for kids to move, play, and grow in a safe and inspiring
-            environment.
+            Youth dodgeball in Groningen is about more than just fun. It’s a space
+            for kids to move, play, and grow in a safe and inspiring environment.
           </p>
 
           <div className={styles.features}>
@@ -224,21 +209,16 @@ export default function YouthPage() {
 
               <label htmlFor="age">Player Age *</label>
               <select id="age" name="age" required>
-                <option value="" disabled>
-                  Select age range
-                </option>
+                <option value="" disabled>Select age range</option>
                 <option value="4-12">4-12</option>
                 <option value="12-16">12-16</option>
               </select>
 
-              <button type="submit" className={styles.submitBtn}>
-                Submit
-              </button>
+              <button type="submit" className={styles.submitBtn}>Submit</button>
             </form>
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

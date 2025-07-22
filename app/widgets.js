@@ -15,17 +15,18 @@ export const widgets = [
   },
   {
     id: 2,
-    component: <TixMembershipWidget />,
-    col: "col-span-12 md:col-span-6",
-    row: "row-span-4",
-  },
-  {
-    id: 3,
     component: <WhatsappWidget />,
     col: "col-span-6 md:col-span-3",
     row: "row-span-2",
   },
-  // Middle large widget (4 cols wide, taller)
+
+  {
+    id: 3,
+    component: <TixMembershipWidget />,
+    col: "col-span-12 md:col-span-6",
+    row: "row-span-4",
+  },
+
   {
     id: 4,
     component: <CalendarWidget />,
@@ -39,7 +40,7 @@ export const widgets = [
     row: "row-span-2",
   },
   {
-    id: 4,
+    id: 6,
     component: <ClinicWidget />,
     col: "col-span-12 md:col-span-3",
     row: "row-span-4",

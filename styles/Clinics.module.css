@@ -1,4 +1,4 @@
-.clinics {
+:root {
   --bg: #f5f4f2;
   --text: #0d0c0b;
 }
@@ -33,6 +33,7 @@ body {
   font-family: "Inter", sans-serif;
   box-sizing: border-box;
   position: relative;
+  
 }
 
 .noOutline {

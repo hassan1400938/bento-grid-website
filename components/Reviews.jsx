@@ -60,15 +60,9 @@ const ReviewCard = ({ name, text }) => (
   </div>
 );
 
-// ✅ Write a review card
+// ✅ Write a review card (neutral style)
 const WriteReviewCard = () => (
-  <div
-    style={{
-      ...styles.card,
-      background: "#e4f7eb",
-      border: "2px dashed #0d0c0b",
-    }}
-  >
+  <div style={{ ...styles.card, background: "#fefaf1", border: "none" }}>
     <p style={styles.cardText}>
       <strong>Want to share your experience?</strong> <br />
       We'd love to hear from you!
@@ -82,9 +76,13 @@ export default function Reviews() {
   const row2Ref = useRef(null);
   const containerRef = useRef(null);
 
+  // ✅ Split into two rows and inject WriteReviewCard into row1
   const half = Math.ceil(reviews.length / 2);
   const row1 = [...reviews.slice(0, half)];
   const row2 = [...reviews.slice(half)];
+
+  // ✅ Insert WriteReviewCard in middle of row1
+  row1.splice(Math.floor(row1.length / 2), 0, { isWriteCard: true });
 
   useEffect(() => {
     const r1 = row1Ref.current;
@@ -96,19 +94,14 @@ export default function Reviews() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 80%", // ⬅️ start earlier
+        start: "top 80%",
         end: "bottom top",
         scrub: 0.6,
       },
     });
 
-    // ✅ Scroll entire row width minus visible part
     tl.to(r1, { x: row1Width - r1.parentElement.clientWidth, ease: "none" }, 0);
-    tl.to(
-      r2,
-      { x: -(row2Width - r2.parentElement.clientWidth), ease: "none" },
-      0
-    );
+    tl.to(r2, { x: -(row2Width - r2.parentElement.clientWidth), ease: "none" }, 0);
 
     return () => tl.kill();
   }, []);
@@ -116,64 +109,9 @@ export default function Reviews() {
   return (
     <div className="relative z-[50]" ref={containerRef}>
       <div className="absolute -top-[2px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
-        <svg
-          viewBox="0 0 1440 14"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-        >
+        <svg viewBox="0 0 1440 14" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path
-            d="M0,7
-       Q15,3.5 30,7
-       T60,7
-       T90,7
-       T120,7
-       T150,7
-       T180,7
-       T210,7
-       T240,7
-       T270,7
-       T300,7
-       T330,7
-       T360,7
-       T390,7
-       T420,7
-       T450,7
-       T480,7
-       T510,7
-       T540,7
-       T570,7
-       T600,7
-       T630,7
-       T660,7
-       T690,7
-       T720,7
-       T750,7
-       T780,7
-       T810,7
-       T840,7
-       T870,7
-       T900,7
-       T930,7
-       T960,7
-       T990,7
-       T1020,7
-       T1050,7
-       T1080,7
-       T1110,7
-       T1140,7
-       T1170,7
-       T1200,7
-       T1230,7
-       T1260,7
-       T1290,7
-       T1320,7
-       T1350,7
-       T1380,7
-       T1410,7
-       T1440,7
-       L1440,14
-       L0,14
-       Z"
+            d="M0,7 C10,4 20,10 30,7 C40,5 50,9 60,7 C70,6 80,8 90,7 C100,5 110,9 120,7 C130,6 140,8 150,7 C160,4 170,10 180,7 C190,6 200,8 210,7 C220,5 230,9 240,7 C250,6 260,8 270,7 C280,4 290,10 300,7 C310,5 320,9 330,7 C340,6 350,8 360,7 C370,5 380,9 390,7 C400,6 410,8 420,7 C430,4 440,10 450,7 C460,5 470,9 480,7 C490,6 500,8 510,7 C520,5 530,9 540,7 C550,6 560,8 570,7 C580,4 590,10 600,7 C610,6 620,8 630,7 C640,5 650,9 660,7 C670,6 680,8 690,7 C700,4 710,10 720,7 C730,5 740,9 750,7 C760,6 770,8 780,7 C790,5 800,9 810,7 C820,6 830,8 840,7 C850,4 860,10 870,7 C880,5 890,9 900,7 C910,6 920,8 930,7 C940,5 950,9 960,7 C970,6 980,8 990,7 C1000,4 1010,10 1020,7 C1030,5 1040,9 1050,7 C1060,6 1070,8 1080,7 C1090,5 1100,9 1110,7 C1120,6 1130,8 1140,7 C1150,4 1160,10 1170,7 C1180,5 1190,9 1200,7 C1210,6 1220,8 1230,7 C1240,5 1250,9 1260,7 C1270,6 1280,8 1290,7 C1300,4 1310,10 1320,7 C1330,5 1340,9 1350,7 C1360,6 1370,8 1380,7 C1390,5 1400,9 1410,7 C1420,6 1430,8 1440,7 L1440,14 L0,14 Z"
             fill="#111111"
           />
         </svg>
@@ -185,8 +123,7 @@ export default function Reviews() {
           <div style={styles.subheading}>What others say</div>
           <div style={styles.title}>Experiences from our Dodgers</div>
           <div style={styles.subtitle}>
-            A sport that <strong style={{ color: "white" }}>connects</strong>. A
-            community that{" "}
+            A sport that <strong style={{ color: "white" }}>connects</strong>. A community that{" "}
             <strong style={{ color: "white" }}>makes you smile</strong>.
           </div>
         </div>
@@ -194,10 +131,9 @@ export default function Reviews() {
         <div style={styles.marqueeWrapper}>
           <div style={styles.marqueeOuter}>
             <div style={styles.marqueeInner} ref={row1Ref}>
-              <WriteReviewCard />
-              {row1.map((r, i) => (
-                <ReviewCard key={`r1-${i}`} {...r} />
-              ))}
+              {row1.map((r, i) =>
+                r.isWriteCard ? <WriteReviewCard key="write" /> : <ReviewCard key={`r1-${i}`} {...r} />
+              )}
             </div>
           </div>
 

@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Footer.module.css";
 import logo from "../public/assets/logo.svg"; // Adjust the path as needed
@@ -86,32 +85,33 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className={styles.footerBottom}>
         <div>&copy; {year} Gron’s Dodgeball. All rights reserved.</div>
-        <div className={styles.paymentIcons} aria-label="Payment Methods">
-          <img
-            src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/apm/ideal.svg"
-            alt="iDEAL"
-            width="40"
-            height="20"
-          />
-          <img
-            src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/wallets/apple-pay.svg"
-            alt="Apple Pay"
-            width="40"
-            height="20"
-          />
-          <img
-            src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/wallets/google-pay.svg"
-            alt="Google Pay"
-            width="40"
-            height="20"
-          />
-          <img
-            src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/visa.svg"
-            alt="Visa"
-            width="40"
-            height="20"
-          />
-        </div>
+      <div className={styles.paymentIcons} aria-label="Payment Methods">
+  <img
+    src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/apm/ideal.svg"
+    alt="iDEAL"
+    width="40"
+    height="20"
+  />
+  <img
+    src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/wallets/apple-pay.svg"
+    alt="Apple Pay"
+    width="40"
+    height="20"
+  />
+  <img
+    src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/wallets/google-pay.svg"
+    alt="Google Pay"
+    width="40"
+    height="20"
+  />
+  <img
+    src="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/visa.svg"
+    alt="Visa"
+    width="40"
+    height="20"
+  />
+</div>
+
       </div>
     </footer>
   );

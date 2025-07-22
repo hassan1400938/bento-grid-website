@@ -2,17 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/PrivacyPolicy.module.css";
+import '../app/globals.css'
 import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 
 const sections = [
   {
     title: "1. Information We Collect",
     content: (
       <ul>
-        <li>
-          Personal Identification: Name, email, phone, birthdate, address.
-        </li>
+        <li>Personal Identification: Name, email, phone, birthdate, address.</li>
         <li>Payment Information for fees and purchases.</li>
         <li>Technical Data: IP, browser, access times.</li>
         <li>Event Participation Data: Attendance, performance, feedback.</li>
@@ -180,65 +178,63 @@ export default function PrivacyPolicy() {
   }, []);
 
   return (
-    <>
+       <div className="text-black top-0 h-full w-full left-0">
+         <canvas
+        ref={canvasRef}
+        className={`${styles.fullscreenCanvas}`}
+        style={{
+          opacity: showCanvas ? 0.05 : 0,
+          mixBlendMode: "normal",
+          transition: "opacity 0.7s ease-in-out",
+        }}
+      />
       <NavBar />
-      <div className="fixed top-0 h-full w-full left-0 overflow-hidden">
-        <canvas
-          ref={canvasRef}
-          className={`${styles.fullscreenCanvas}`}
-          style={{
-            opacity: showCanvas ? 0.05 : 0,
-            mixBlendMode: "normal",
-            transition: "opacity 0.7s ease-in-out",
-          }}
-        />
-        <div className={styles.bodyWrapper}>
-          {/* ✅ Canvas background */}
+    <div className={styles.bodyWrapper}>
+      {/* ✅ Canvas background */}
+      
 
-          <main className={styles.main}>
-            <h1 className={styles.title}>Privacy Policy</h1>
+      <main className={styles.main}>
+        <h1 className={styles.title}>Privacy Policy</h1>
 
-            <div
-              className={styles.accordion}
-              role="region"
-              aria-label="Privacy Policy"
-            >
-              {sections.map((section, index) => (
-                <section className={styles.accordionItem} key={index}>
-                  <button
-                    className={styles.accordionButton}
-                    aria-expanded={activeIndex === index}
-                    aria-controls={`sec${index}`}
-                    id={`btn${index}`}
-                    onClick={() => toggleAccordion(index)}
-                  >
-                    {section.title}
-                  </button>
-                  <div
-                    className={`${styles.accordionPanel} ${
-                      activeIndex === index ? styles.accordionPanelOpen : ""
-                    }`}
-                    id={`sec${index}`}
-                    role="region"
-                    aria-labelledby={`btn${index}`}
-                    ref={(el) => (panelRefs.current[index] = el)}
-                    style={{
-                      maxHeight:
-                        activeIndex === index && panelRefs.current[index]
-                          ? panelRefs.current[index].scrollHeight + "px"
-                          : null,
-                    }}
-                    tabIndex={0}
-                  >
-                    {section.content}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </main>
+        <div
+          className={styles.accordion}
+          role="region"
+          aria-label="Privacy Policy"
+        >
+          {sections.map((section, index) => (
+            <section className={styles.accordionItem} key={index}>
+              <button
+                className={styles.accordionButton}
+                aria-expanded={activeIndex === index}
+                aria-controls={`sec${index}`}
+                id={`btn${index}`}
+                onClick={() => toggleAccordion(index)}
+              >
+                {section.title}
+              </button>
+              <div
+                className={`${styles.accordionPanel} ${
+                  activeIndex === index ? styles.accordionPanelOpen : ""
+                }`}
+                id={`sec${index}`}
+                role="region"
+                aria-labelledby={`btn${index}`}
+                ref={(el) => (panelRefs.current[index] = el)}
+                style={{
+                  maxHeight:
+                    activeIndex === index && panelRefs.current[index]
+                      ? panelRefs.current[index].scrollHeight + "px"
+                      : null,
+                }}
+                tabIndex={0}
+              >
+                {section.content}
+              </div>
+            </section>
+          ))}
         </div>
-      </div>
-      <Footer />
-    </>
+      </main>
+    </div>
+    </div>
   );
 }

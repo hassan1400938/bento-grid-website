@@ -20,8 +20,8 @@ const UpcomingSessions = () => {
   }, []);
 
   const fetchSessions = async () => {
-    const apiKey = process.env.GOOGLE_API_KEY;
-    const calendarId = process.env.GOOGLE_CALENDAR_ID;
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+    const calendarId = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_ID;
     const timeMin = new Date().toISOString();
 
     try {

@@ -18,30 +18,39 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 9999999999999999999;
   animation: slideUp 0.8s ease-in-out forwards;
   animation-delay: 2s; /* after fill completes */
+}
+
+.logo-wrapper{
+  animation: logoSlideUp 0.8s ease-in-out forwards;
+  position: absolute;
+  opacity: 0.5;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* === LOGO === */
 .logo-loader {
   width: 200px;
   height: auto;
+
 }
 
 /* === INITIAL OUTLINE STYLE === */
-.logo-loader .cls-1 {
-  stroke: white;
-  stroke-width: 2;
-  fill: white;
-  clip-path: inset(100% 0 0 0); /* Hidden at bottom */
-  animation: fillUp 2s ease forwards;
-}
 
 
-@keyframes fillUp {
+
+@keyframes logoSlideUp {
   to {
-    clip-path: inset(0 0 0 0); /* Reveal top-to-bottom */
+    transform: translate(-50%,-100%);
+    opacity: 1;
   }
 }
 

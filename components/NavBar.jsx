@@ -15,54 +15,19 @@ const NavBar = () => {
   const boxRefs = useRef([]);
   const contactItemRefs = useRef([]); // 🆕 New ref array for email & phone
 
-const links = [
-  { label: "Start", href: "#start" },
-  { label: "Upcoming Sessions", href: "#sessions" },
-  { label: "Clinics & Team Building", href: "/clinics", external: true },
-  { label: "Memberships", href: "#memberships" },
-  { label: "Youth", href: "/youth", external: true },
-  { label: "Locations", href: "#locations", hidden: true }, // will be hidden
-  { label: "Funds & Accessibility", href: "#funds" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-];
+  const links = [
+    { label: "Start", href: "#start" },
+    { label: "Upcoming Sessions", href: "#sessions" },
+    { label: "Clinics & Team Building", href: "/clinics", external: true },
+    { label: "Memberships", href: "#memberships" },
+    { label: "Youth", href: "/youth", external: true },
+    { label: "Locations", href: "#locations", hidden: true }, // will be hidden
+    { label: "Funds & Accessibility", href: "#funds" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Contact", href: "#contact" },
+  ];
 
   const svgIcons = [
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        fillRule="evenodd"
-        d="M12 4.15c-1.191 0-2.58.028-3.934.066l-.055.002c-1.378.039-2.49.07-3.366.215c-.913.151-1.671.44-2.277 1.063c-.608.625-.873 1.398-.998 2.323c-.12.89-.12 2.018-.12 3.42v1.524c0 1.4 0 2.528.12 3.419c.124.925.39 1.698.998 2.323c.606.624 1.364.912 2.277 1.063c.876.145 1.988.176 3.366.215l.055.002c1.355.038 2.743.066 3.934.066s2.58-.028 3.934-.066l.055-.002c1.378-.039 2.49-.07 3.366-.215c.913-.151 1.671-.44 2.277-1.063c.608-.625.874-1.398.998-2.323c.12-.89.12-2.018.12-3.42v-1.524c0-1.401 0-2.529-.12-3.419c-.124-.925-.39-1.698-.998-2.323c-.606-.624-1.364-.912-2.277-1.063c-.876-.145-1.988-.176-3.367-.215l-.054-.002A145 145 0 0 0 12 4.15m-1.128 10.501A.75.75 0 0 1 9.75 14v-4a.75.75 0 0 1 1.122-.651l3.5 2a.75.75 0 0 1 0 1.302z"
-        clipRule="evenodd"
-      />
-    </svg>,
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M20.47 2H3.53a1.45 1.45 0 0 0-1.47 1.43v17.14A1.45 1.45 0 0 0 3.53 22h16.94a1.45 1.45 0 0 0 1.47-1.43V3.43A1.45 1.45 0 0 0 20.47 2M8.09 18.74h-3v-9h3ZM6.59 8.48a1.56 1.56 0 1 1 0-3.12a1.57 1.57 0 1 1 0 3.12m12.32 10.26h-3v-4.83c0-1.21-.43-2-1.52-2A1.65 1.65 0 0 0 12.85 13a2 2 0 0 0-.1.73v5h-3v-9h3V11a3 3 0 0 1 2.71-1.5c2 0 3.45 1.29 3.45 4.06Z"
-      />
-    </svg>,
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M12.001 9a3 3 0 1 0 0 6a3 3 0 0 0 0-6m0-2a5 5 0 1 1 0 10a5 5 0 0 1 0-10m6.5-.25a1.25 1.25 0 0 1-2.5 0a1.25 1.25 0 0 1 2.5 0M12.001 4c-2.474 0-2.878.007-4.029.058c-.784.037-1.31.142-1.798.332a2.9 2.9 0 0 0-1.08.703a2.9 2.9 0 0 0-.704 1.08c-.19.49-.295 1.015-.331 1.798C4.007 9.075 4 9.461 4 12c0 2.475.007 2.878.058 4.029c.037.783.142 1.31.331 1.797c.17.435.37.748.702 1.08c.337.336.65.537 1.08.703c.494.191 1.02.297 1.8.333C9.075 19.994 9.461 20 12 20c2.475 0 2.878-.007 4.029-.058c.782-.037 1.308-.142 1.797-.331a2.9 2.9 0 0 0 1.08-.703c.337-.336.538-.649.704-1.08c.19-.492.296-1.018.332-1.8c.052-1.103.058-1.49.058-4.028c0-2.474-.007-2.878-.058-4.029c-.037-.782-.143-1.31-.332-1.798a2.9 2.9 0 0 0-.703-1.08a2.9 2.9 0 0 0-1.08-.704c-.49-.19-1.016-.295-1.798-.331C14.926 4.006 14.54 4 12 4m0-2c2.717 0 3.056.01 4.123.06c1.064.05 1.79.217 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.047 1.066.06 1.405.06 4.122s-.01 3.056-.06 4.122s-.218 1.79-.465 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465c-1.067.047-1.406.06-4.123.06s-3.056-.01-4.123-.06c-1.064-.05-1.789-.218-2.427-.465a4.9 4.9 0 0 1-1.772-1.153a4.9 4.9 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.012 15.056 2 14.717 2 12s.01-3.056.06-4.122s.217-1.79.465-2.428a4.9 4.9 0 0 1 1.153-1.772A4.9 4.9 0 0 1 5.45 2.525c.637-.248 1.362-.415 2.427-.465C8.945 2.013 9.284 2 12.001 2"
-      />
-    </svg>,
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -77,23 +42,93 @@ const links = [
     </svg>,
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
     >
-      <g fill="none">
-        <g clipPath="url(#a)">
+      <path
+        fill="currentColor"
+        d="M12.001 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.03-1.355L2.005 22l1.352-4.968A9.95 9.95 0 0 1 2.001 12c0-5.523 4.477-10 10-10M8.593 7.3l-.2.008a1 1 0 0 0-.372.1a1.3 1.3 0 0 0-.294.228c-.12.113-.188.211-.261.306A2.73 2.73 0 0 0 6.9 9.62c.002.49.13.967.33 1.413c.409.902 1.082 1.857 1.97 2.742c.214.213.424.427.65.626a9.45 9.45 0 0 0 3.84 2.046l.568.087c.185.01.37-.004.556-.013a2 2 0 0 0 .833-.231a5 5 0 0 0 .383-.22q.001.002.125-.09c.135-.1.218-.171.33-.288q.126-.13.21-.302c.078-.163.156-.474.188-.733c.024-.198.017-.306.014-.373c-.004-.107-.093-.218-.19-.265l-.582-.261s-.87-.379-1.402-.621a.5.5 0 0 0-.176-.041a.48.48 0 0 0-.378.127c-.005-.002-.072.055-.795.931a.35.35 0 0 1-.368.13a1.4 1.4 0 0 1-.191-.066c-.124-.052-.167-.072-.252-.108a6 6 0 0 1-1.575-1.003c-.126-.11-.243-.23-.363-.346a6.3 6.3 0 0 1-1.02-1.268l-.059-.095a1 1 0 0 1-.102-.205c-.038-.147.061-.265.061-.265s.243-.266.356-.41c.11-.14.203-.276.263-.373c.118-.19.155-.385.093-.536q-.42-1.026-.868-2.041c-.059-.134-.234-.23-.393-.249q-.081-.01-.162-.016a3 3 0 0 0-.403.004z"
+      />
+    </svg>,
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"
+      />
+    </svg>,
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <mask id="lineMdTiktok0">
+        <g
+          fill="none"
+          stroke="#fff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        >
           <path
-            fill="currentColor"
-            d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"
+            fill="#fff"
+            stroke="none"
+            d="M16.6 5.82c-0.68 -0.78 -1.06 -1.78 -1.06 -2.82h-3.09v12.4c-0.02 0.67 -0.31 1.31 -0.79 1.77c-0.48 0.47 -1.13 0.73 -1.8 0.73c-1.42 0 -2.6 -1.16 -2.6 -2.6c0 -1.72 1.66 -3.01 3.37 -2.48v-3.16c-3.45 -0.46 -6.47 2.22 -6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69 -2.55 5.69 -5.7v-6.29c1.25 0.9 2.76 1.38 4.3 1.38v-3.09c0 0 -1.88 0.09 -3.24 -1.48Z"
           />
+          <path
+            stroke="#000"
+            stroke-dasharray="36"
+            stroke-dashoffset="72"
+            stroke-width="4"
+            d="M11 11h-1c-2.21 0 -4.5 1.79 -4.5 4c0 2.21 1.5 4.5 4.5 4.5c2.21 0 4 -2.29 4 -4.5v-12.5"
+          >
+            <animate
+              fill="freeze"
+              attributeName="stroke-dashoffset"
+              dur="0.6s"
+              values="72;36"
+            />
+          </path>
+          <path
+            stroke="#000"
+            stroke-dasharray="10"
+            stroke-dashoffset="20"
+            stroke-width="4"
+            d="M18 2.5v8"
+          >
+            <animate
+              fill="freeze"
+              attributeName="stroke-dashoffset"
+              begin="0.5s"
+              dur="0.1s"
+              values="20;10"
+            />
+          </path>
         </g>
-        <defs>
-          <clipPath id="a">
-            <path fill="#fff" d="M0 0h14v14H0z" />
-          </clipPath>
-        </defs>
-      </g>
+      </mask>
+      <rect
+        width="24"
+        height="24"
+        fill="currentColor"
+        mask="url(#lineMdTiktok0)"
+      />
+    </svg>,
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M19.888 7.335a5.13 5.13 0 0 0-2.893-2.418a9 9 0 0 0-2.275-.508q-.284.504-.508 1.038a15 15 0 0 0-4.56 0a11 11 0 0 0-.519-1.038c-.752.082-1.493.249-2.208.497a5.12 5.12 0 0 0-2.904 2.44a16.18 16.18 0 0 0-1.91 9.717a16.6 16.6 0 0 0 4.98 2.528a4.34 4.34 0 0 0 1.104-1.777q-.81-.304-1.557-.74c-.089-.122.254-.32.364-.354a11.83 11.83 0 0 0 10.037 0c.1 0 .453.232.364.354c-.441.342-1.424.585-1.59.828a7.4 7.4 0 0 0 1.105 1.69a16.6 16.6 0 0 0 4.99-2.53a16.23 16.23 0 0 0-2.02-9.727M8.669 14.7a1.943 1.943 0 0 1-1.92-1.955a1.943 1.943 0 0 1 1.92-1.91a1.94 1.94 0 0 1 1.933 1.965a1.943 1.943 0 0 1-1.933 1.9m6.625 0a1.943 1.943 0 0 1-1.932-1.944a1.932 1.932 0 1 1 3.865.034a1.93 1.93 0 0 1-1.933 1.899z"
+      />
     </svg>,
   ];
 
@@ -255,7 +290,7 @@ const links = [
   return (
     <>
       {/* Trigger */}
-      <div className="flex max-w-[655px] w-full px-4 xl:mb-0 mb-10 mx-auto mt-4 relative z-50 items-center justify-between gap-3">
+      <div className="flex max-w-[655px] text-black w-full px-4 xl:mb-0 mb-10 mx-auto mt-4 relative z-50 items-center justify-between gap-3">
         <Link href="/">
           <img src={logo.src} className="w-12 h-12" alt="" />
         </Link>
@@ -283,14 +318,14 @@ const links = [
       {/* Sliding Cover */}
       <div
         ref={coverRef}
-        className="fixed top-0 left-0 w-full h-screen bg-[#161616] z-[60] hidden"
+        className="fixed top-0 left-0 w-full h-screen bg-[#161616] z-[99999999999999999999999] hidden"
         style={{ transform: "translateY(100%)" }}
       />
 
       {/* Overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 bg-[#161616] z-40 hidden"
+        className="fixed inset-0 bg-[#161616] z-[99999999999999999999999] hidden"
         style={{ opacity: 0 }}
       />
 
@@ -321,61 +356,63 @@ const links = [
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8  flex flex-col md:flex-row md:min-h-[90vh] md:items-end justify-between py-10 gap-6 sm:gap-12 md:gap-0">
           {/* Menu Links */}
           <div className="flex flex-col justify-center gap-6 flex-1">
-           {links.map((link, index) => (
-  <div key={index} className={`overflow-hidden h-fit w-fit ${link.hidden ? 'hidden' : ''}`}>
-    <div
-      className="relative w-fit group cursor-pointer flex items-start gap-2"
-      onMouseEnter={() => handleMouseEnter(index)}
-    >
-    
-
-      {link.external ? (
-        <a
-          href={link.href}
-          ref={(el) => (linkRefs.current[index] = el)}
-          className="text-xl leading-none sm:text-[5vh] font-semibold block w-fit"
-        >
-          {link.label}
-          <div
-            ref={(el) => (boxRefs.current[index] = el)}
-            className="absolute top-0 left-0 h-full bg-black/30 z-0"
-            style={{
-              width: "100%",
-              transform: "translateX(-100%)",
-            }}
-          />
-        </a>
-      ) : (
-        <a
-          href={link.href}
-          ref={(el) => (linkRefs.current[index] = el)}
-          onClick={(e) => {
-            e.preventDefault();
-            const target = document.querySelector(link.href);
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-            setTimeout(() => {
-              closeMenu();
-            }, 600);
-          }}
-          className="text-xl leading-none sm:text-[5vh] font-semibold block w-fit"
-        >
-          {link.label}
-          <div
-            ref={(el) => (boxRefs.current[index] = el)}
-            className="absolute top-0 left-0 h-full bg-black/30 z-0"
-            style={{
-              width: "100%",
-              transform: "translateX(-100%)",
-            }}
-          />
-        </a>
-      )}
-    </div>
-  </div>
-))}
-
+            {links.map((link, index) => (
+              <div
+                key={index}
+                className={`overflow-hidden uppercase h-fit w-fit ${
+                  link.hidden ? "hidden" : ""
+                }`}
+              >
+                <div
+                  className="relative w-fit group cursor-pointer flex items-start gap-2"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                >
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      ref={(el) => (linkRefs.current[index] = el)}
+                      className="text-xl leading-none sm:text-[5vh] font-semibold block w-fit"
+                    >
+                      {link.label}
+                      <div
+                        ref={(el) => (boxRefs.current[index] = el)}
+                        className="absolute top-0 left-0 h-full bg-black/30 z-0"
+                        style={{
+                          width: "100%",
+                          transform: "translateX(-100%)",
+                        }}
+                      />
+                    </a>
+                  ) : (
+                    <a
+                      href={link.href}
+                      ref={(el) => (linkRefs.current[index] = el)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const target = document.querySelector(link.href);
+                        if (target) {
+                          target.scrollIntoView({ behavior: "smooth" });
+                        }
+                        setTimeout(() => {
+                          closeMenu();
+                        }, 600);
+                      }}
+                      className="text-xl leading-none sm:text-[5vh] font-semibold block w-fit"
+                    >
+                      {link.label}
+                      <div
+                        ref={(el) => (boxRefs.current[index] = el)}
+                        className="absolute top-0 left-0 h-full bg-black/30 z-0"
+                        style={{
+                          width: "100%",
+                          transform: "translateX(-100%)",
+                        }}
+                      />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Contact Section */}
@@ -392,7 +429,7 @@ const links = [
               ref={(el) => (contactItemRefs.current[1] = el)}
               className="text-base sm:text-lg md:text-xl font-semibold text-gray-700 hover:opacity-70 hover:pr-4 transition-all duration-300 hover:scale-105 hover:text-black"
             >
-             +1 234 5678 910
+              +1 234 5678 910
             </a>
             <div className="flex items-center gap-3 mt-5">
               {svgIcons.map((icon, idx) => (
