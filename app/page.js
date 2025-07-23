@@ -66,29 +66,28 @@ export default function HomePage() {
     const fps = 12;
     const interval = 1000 / fps;
 
-   const drawNoise = () => {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  ctx.clearRect(0, 0, w, h);
+    const drawNoise = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      ctx.clearRect(0, 0, w, h);
 
-  const dotCount = 4000;
-  for (let i = 0; i < dotCount; i++) {
-    const x = Math.random() * w;
-    const y = Math.random() * h;
-    const radius = Math.random() * 2 + 0.5;
-    const alpha = Math.random() * 0.2 + 0.1; // keep low alpha
+      const dotCount = 4000;
+      for (let i = 0; i < dotCount; i++) {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+        const radius = Math.random() * 2 + 0.5;
+        const alpha = Math.random() * 0.2 + 0.1; // keep low alpha
 
-    const r = Math.floor(200 + Math.random() * 55); // brighter range
-    const g = Math.floor(200 + Math.random() * 55);
-    const b = Math.floor(200 + Math.random() * 55);
+        const r = Math.floor(200 + Math.random() * 55); // brighter range
+        const g = Math.floor(200 + Math.random() * 55);
+        const b = Math.floor(200 + Math.random() * 55);
 
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    ctx.fill();
-  }
-};
-
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        ctx.fill();
+      }
+    };
 
     const loop = (now) => {
       if (now - lastDraw > interval) {
@@ -210,13 +209,13 @@ export default function HomePage() {
       <Preloader />
 
       <main className="flex flex-col w-full min-h-screen overflow-hidden relative text-black">
-      <canvas
-  ref={canvasRef}
-  className={`fixed top-0 left-0 w-full h-full z-40 pointer-events-none transition-opacity duration-700 ease-in-out ${
-    showCanvas ? "opacity-[1]" : "opacity-0"
-  }`}
-  style={{ mixBlendMode: "multiply" }}
-/>
+        <canvas
+          ref={canvasRef}
+          className={`fixed top-0 left-0 w-full h-full z-40 pointer-events-none transition-opacity duration-700 ease-in-out ${
+            showCanvas ? "opacity-[1]" : "opacity-0"
+          }`}
+          style={{ mixBlendMode: "multiply" }}
+        />
 
         {/* hero section */}
         <div ref={heroRef} className="">
