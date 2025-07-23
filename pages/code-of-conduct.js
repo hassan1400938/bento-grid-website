@@ -108,8 +108,6 @@ export default function CodeOfConduct() {
   // ✅ Canvas Noise Effect
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     const dpr = window.devicePixelRatio || 1;
 
@@ -120,10 +118,8 @@ export default function CodeOfConduct() {
       canvas.style.height = h + "px";
       canvas.width = w * dpr;
       canvas.height = h * dpr;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
     };
-
     setSize();
     window.addEventListener("resize", setSize);
 
@@ -135,18 +131,22 @@ export default function CodeOfConduct() {
     const drawNoise = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      ctx.fillStyle = "#f1eee7";
-      ctx.fillRect(0, 0, w, h);
+      ctx.clearRect(0, 0, w, h);
 
       const dotCount = 4000;
       for (let i = 0; i < dotCount; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
         const radius = Math.random() * 2 + 0.5;
-        const alpha = Math.random() * 0.3 + 0.5;
+        const alpha = Math.random() * 0.2 + 0.1; // keep low alpha
+
+        const r = Math.floor(200 + Math.random() * 55); // brighter range
+        const g = Math.floor(200 + Math.random() * 55);
+        const b = Math.floor(200 + Math.random() * 55);
+
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         ctx.fill();
       }
     };
@@ -159,12 +159,29 @@ export default function CodeOfConduct() {
       animationFrame = requestAnimationFrame(loop);
     };
 
-    setShowCanvas(true);
-    animationFrame = requestAnimationFrame(loop);
+    let hasStarted = false;
+
+    const startAnimation = () => {
+      if (hasStarted) return;
+      hasStarted = true;
+      setShowCanvas(true);
+      animationFrame = requestAnimationFrame(loop);
+      window.removeEventListener("scroll", startAnimation);
+      window.removeEventListener("wheel", startAnimation);
+    };
+
+    window.addEventListener("scroll", startAnimation);
+    window.addEventListener("wheel", startAnimation);
+
+    // fallback in case scroll never happens
+    const timeout = setTimeout(startAnimation, 3000);
 
     return () => {
       cancelAnimationFrame(animationFrame);
+      clearTimeout(timeout);
       window.removeEventListener("resize", setSize);
+      window.removeEventListener("scroll", startAnimation);
+      window.removeEventListener("wheel", startAnimation);
     };
   }, []);
 
@@ -173,12 +190,10 @@ export default function CodeOfConduct() {
       <div className=" top-0 h-full text-black w-full left-0 overflow-hidden">
         <canvas
           ref={canvasRef}
-          className={`${styles.fullscreenCanvas}`}
-          style={{
-            opacity: showCanvas ? 0.05 : 0,
-            mixBlendMode: "normal",
-            transition: "opacity 0.7s ease-in-out",
-          }}
+          className={`fixed top-0 left-0 w-full h-full z-40 pointer-events-none transition-opacity duration-700 ease-in-out ${
+            showCanvas ? "opacity-[1]" : "opacity-0"
+          }`}
+          style={{ mixBlendMode: "multiply" }}
         />
         <NavBar />
         <div className={styles.wrapper}>

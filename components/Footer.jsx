@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer className={`${styles.main} ${styles.footer}`} aria-label="Footer">
-      <div className={styles.footerGrid}>
+      <div className={` relative z-50 ${styles.footerGrid}`}>
         {/* Dodgeball logo */}
         <div className={styles.footerLogo}>
           <Link href="/">
@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
 
         {/* Company */}
-        <nav className={styles.footerLinks} aria-label="Company">
+        <nav className={`relative z-50 ${styles.footerLinks}`} aria-label="Company">
           <h4>Company</h4>
           <Link href="#">About</Link>
           <Link href="#">Join Us</Link>
@@ -83,7 +83,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className={styles.footerBottom}>
+      <div className={`relative z-50 ${styles.footerBottom}`}>
         <div>&copy; {year} Gron’s Dodgeball. All rights reserved.</div>
       <div className={styles.paymentIcons} aria-label="Payment Methods">
   <img

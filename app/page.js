@@ -69,18 +69,22 @@ export default function HomePage() {
     const drawNoise = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      ctx.fillStyle = "#f5f5dc";
-      ctx.fillRect(0, 0, w, h);
+      ctx.clearRect(0, 0, w, h);
 
       const dotCount = 4000;
       for (let i = 0; i < dotCount; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
         const radius = Math.random() * 2 + 0.5;
-        const alpha = Math.random() * 0.3 + 0.5;
+        const alpha = Math.random() * 0.2 + 0.1; // keep low alpha
+
+        const r = Math.floor(200 + Math.random() * 55); // brighter range
+        const g = Math.floor(200 + Math.random() * 55);
+        const b = Math.floor(200 + Math.random() * 55);
+
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         ctx.fill();
       }
     };
@@ -208,9 +212,9 @@ export default function HomePage() {
         <canvas
           ref={canvasRef}
           className={`fixed top-0 left-0 w-full h-full z-40 pointer-events-none transition-opacity duration-700 ease-in-out ${
-            showCanvas ? "opacity-[0.05]" : "opacity-0"
+            showCanvas ? "opacity-[1]" : "opacity-0"
           }`}
-          style={{ mixBlendMode: "normal" }}
+          style={{ mixBlendMode: "multiply" }}
         />
 
         {/* hero section */}

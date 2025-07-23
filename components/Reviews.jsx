@@ -84,27 +84,40 @@ export default function Reviews() {
   // ✅ Insert WriteReviewCard in middle of row1
   row1.splice(Math.floor(row1.length / 2), 0, { isWriteCard: true });
 
-  useEffect(() => {
-    const r1 = row1Ref.current;
-    const r2 = row2Ref.current;
+useEffect(() => {
+  const r1 = row1Ref.current;
+  const r2 = row2Ref.current;
 
-    const row1Width = r1.scrollWidth;
-    const row2Width = r2.scrollWidth;
+  const row1Width = r1.scrollWidth;
+  const row2Width = r2.scrollWidth;
+  const containerWidth = r1.parentElement.clientWidth;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        end: "bottom top",
-        scrub: 0.6,
-      },
-    });
+  // Start row1 completely offscreen to the left
+  gsap.set(r1, { x: -row1Width });
 
-    tl.to(r1, { x: row1Width - r1.parentElement.clientWidth, ease: "none" }, 0);
-    tl.to(r2, { x: -(row2Width - r2.parentElement.clientWidth), ease: "none" }, 0);
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: containerRef.current,
+      start: "top 80%",
+      end: "bottom top",
+      scrub: 0.6,
+    },
+  });
 
-    return () => tl.kill();
-  }, []);
+  // Move row1 into view from -row1Width to 0
+  tl.to(r1, {
+    x: 0,
+    ease: "none",
+  }, 0);
+
+  // Animate row2 from right to left as usual
+  tl.to(r2, {
+    x: -(row2Width - containerWidth),
+    ease: "none",
+  }, 0);
+
+  return () => tl.kill();
+}, []);
 
   return (
     <div className="relative z-[50]" ref={containerRef}>

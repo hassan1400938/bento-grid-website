@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './globals.css'
 const translations = [
   "Dodgeball",
   "Völkerball",
@@ -18,17 +18,20 @@ const Preloader = ({ onLoaded }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showText, setShowText] = useState(true);
-  const [done, setDone] = useState(false); // lock to prevent extra updates
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (done) return;
 
     if (currentIndex === translations.length - 1) {
-      setDone(true); // Lock
+      setDone(true);
       setTimeout(() => {
-        setFadeOut(true); // Trigger fade out
-        setTimeout(() => setVisible(false), 700); // Match transition duration
-      }, 1000); // Wait before fading out
+        setFadeOut(true);
+        setTimeout(() => {
+          setVisible(false);
+          onLoaded?.(); // Notify parent if provided
+        }, 700);
+      }, 1000);
       return;
     }
 
@@ -46,21 +49,19 @@ const Preloader = ({ onLoaded }) => {
   if (!visible) return null;
 
   return (
-   <div
-      className={`fixed inset-0 z-[9999999999999999999] bg-black flex flex-col items-center justify-center  text-white transition-all duration-700 ${
-        fadeOut ? 'opacity-50 -translate-y-full' : 'opacity-100 translate-y-0'
+    <div
+      className={`fixed inset-0 z-[9999999] bg-black flex flex-col items-center justify-center text-white transition-all duration-700 ${
+        fadeOut ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
       }`}
     >
-          <div className="logo-wrapper">
-
-        <svg
-          className="logo-loader"
+       <svg
+          className="logo-loader logo-path"
           xmlns="http://www.w3.org/2000/svg"
           id="Layer_1"
           data-name="Layer 1"
           viewBox="0 0 967.39 959.06"
         >
-          <g>
+          <g >
             <path
               className="fill-white text-white"
               d="M664.29,39.96c-12.57,39.77-20.02,83.99-33.55,123.11-1.33,3.84-2.21,8.55-7.35,8.47-3.43-.04-33.72-8.16-36.66-9.92-3.77-2.28-5.91-6.48-7.04-10.63l-21.55-85.12-21.75,77.97c-3.55,4.72-34.1-4.08-35.16-5.55-1.53-2.11-1.36-6.99-.83-9.59l31.27-121.49,2.47-3.84c3.55-1.81,23.78,3.67,29.07,5.05,12.43,3.24,15.09,1.27,19.55,14.53,8.42,24.96,13.18,53.41,20.77,78.96.5,1.7.11,3.91,2.58,4.36l19.07-77.23,3.31-3.56c1.94-.29,30.69,7.26,32.84,8.56,2.95,1.78,2.97,2.36,2.97,5.95Z"
@@ -122,7 +123,7 @@ const Preloader = ({ onLoaded }) => {
               d="M676.51,112.23c-8.89-3.24-9.92-11.6-1.04-14.25,3.02-.91,21.44-.27,16.25-9.18-.28-.48-4.19-1.83-5.91-4.81-13.13-22.89,20.63-42.27,33.73-19.84,13.95,23.88-18.6,57.04-43.04,48.09Z"
             />
           </g>
-          <g>
+          <g className="logo-path">
             <path
               className="fill-white text-white"
               d="M81.34,625.58c1.46-.18,3.54-.58,4.77.39,3.23,5.89-4.92,11.11-9.17,14.06-17.12,11.88-44.26,26.87-63.39,35.17-2.27.99-16.73,7.54-12.91.47,2.66-4.92,27.85-20.98,34.05-24.96,9.71-6.25,36.47-23.85,46.66-25.13Z"
@@ -172,21 +173,13 @@ const Preloader = ({ onLoaded }) => {
               d="M609.12,526.3c-1.99,5.3-7.81,11.93-13.07,14-9.63,3.8-30.26,1.88-40.5-.32-26.6-5.71-50.67-23.25-55.37-51.38,2.94-.19,5.68,1.21,8.32,2.32,10.89,4.54,20.98,11.39,31.62,16.44,21.22,10.06,45.59,17,68.99,18.94Z"
             />
           </g>
+           <rect className="fill-mask" />
         </svg>
-
-
-       <div
-        className={`text-center text-2xl mt-5 font-semibold tracking-wide transition-opacity duration-300 ${
-          showText ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        {translations[currentIndex]}
+      <div className="text-xl mt-6 transition-opacity duration-300 ease-in-out">
+        {showText && translations[currentIndex]}
       </div>
-      
     </div>
-      </div>
   );
 };
-
 
 export default Preloader;
