@@ -1,10 +1,6 @@
-:root {
+.clinics {
   --bg: #f5f4f2;
   --text: #0d0c0b;
-}
-
-body {
-  background: var(--bg);
 }
 
 .fullscreenCanvas {
@@ -33,7 +29,6 @@ body {
   font-family: "Inter", sans-serif;
   box-sizing: border-box;
   position: relative;
-  
 }
 
 .noOutline {

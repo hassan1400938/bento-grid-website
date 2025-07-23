@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/TermsOfService.module.css";
-import '../app/globals.css';
+import "../app/globals.css";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 const sections = [
   {
     title: "1. What These Terms Cover",
@@ -312,51 +313,52 @@ export default function TermsOfService() {
   return (
     <>
       <div className="text-black top-0 h-full w-full left-0 overflow-hidden">
-         <canvas
-        ref={canvasRef}
-        className={`${styles.fullscreenCanvas}`}
-        style={{
-          opacity: showCanvas ? 0.05 : 0,
-          mixBlendMode: "normal",
-          transition: "opacity 0.7s ease-in-out",
-        }}
-      />
-      <NavBar />
-      <div className={styles.bodyWrapper}>
-        <main className={styles.main}>
-          <h1 className={styles.title}>Terms of Service</h1>
-          <div role="region" aria-label="Terms of Service">
-            {sections.map((section, index) => (
-              <section className={styles.accordionItem} key={index}>
-                <button
-                  className={styles.accordionButton}
-                  aria-expanded={openIndex === index}
-                  aria-controls={`sec${index}`}
-                  id={`btn${index}`}
-                  onClick={() => handleToggle(index)}
-                >
-                  {section.title}
-                </button>
-                <div
-                  className={`${styles.accordionPanel} ${
-                    openIndex === index ? styles.accordionPanelOpen : ""
-                  }`}
-                  id={`sec${index}`}
-                  role="region"
-                  aria-labelledby={`btn${index}`}
-                  style={{
-                    maxHeight: openIndex === index ? "1000px" : "0px",
-                  }}
-                  tabIndex={openIndex === index ? 0 : -1}
-                >
-                  {section.content}
-                </div>
-              </section>
-            ))}
-          </div>
-        </main>
+        <canvas
+          ref={canvasRef}
+          className={`${styles.fullscreenCanvas}`}
+          style={{
+            opacity: showCanvas ? 0.05 : 0,
+            mixBlendMode: "normal",
+            transition: "opacity 0.7s ease-in-out",
+          }}
+        />
+        <NavBar />
+        <div className={styles.bodyWrapper}>
+          <main className={styles.main}>
+            <h1 className={styles.title}>Terms of Service</h1>
+            <div role="region" aria-label="Terms of Service">
+              {sections.map((section, index) => (
+                <section className={styles.accordionItem} key={index}>
+                  <button
+                    className={styles.accordionButton}
+                    aria-expanded={openIndex === index}
+                    aria-controls={`sec${index}`}
+                    id={`btn${index}`}
+                    onClick={() => handleToggle(index)}
+                  >
+                    {section.title}
+                  </button>
+                  <div
+                    className={`${styles.accordionPanel} ${
+                      openIndex === index ? styles.accordionPanelOpen : ""
+                    }`}
+                    id={`sec${index}`}
+                    role="region"
+                    aria-labelledby={`btn${index}`}
+                    style={{
+                      maxHeight: openIndex === index ? "1000px" : "0px",
+                    }}
+                    tabIndex={openIndex === index ? 0 : -1}
+                  >
+                    {section.content}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </main>
+        </div>
       </div>
-      </div>
+      <Footer />
     </>
   );
 }

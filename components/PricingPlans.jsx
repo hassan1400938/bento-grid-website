@@ -88,15 +88,15 @@ export default function PricingPlans() {
   }, [activeTab]);
 
   return (
-    <div className="relative">
+    <div className={`${styles.pricing} relative`}>
       <div className="absolute -top-[2px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
         <svg
-  viewBox="0 0 1440 14"
-  xmlns="http://www.w3.org/2000/svg"
-  preserveAspectRatio="none"
->
-  <path
-    d="
+          viewBox="0 0 1440 14"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="
       M0,7
       C10,4 20,10 30,7
       C40,5 50,9 60,7
@@ -150,9 +150,9 @@ export default function PricingPlans() {
       L1440,14
       L0,14
       Z"
-    fill="#F5E2CF"
-  />
-</svg>
+            fill="#F5E2CF"
+          />
+        </svg>
       </div>
 
       <div

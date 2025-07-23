@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 export default function SpotifyListWidget() {
   return (
     <iframe
       src="/widgets/spotify.html"
-      className="w-full h-full rounded-3xl overflow-hidden"
+      className="w-full h-full overflow-hidden"
       loading="lazy"
     />
-  )
+  );
 }

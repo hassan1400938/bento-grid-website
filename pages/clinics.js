@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../styles/Clinics.module.css";
 import NavBar from "@/components/NavBar";
-import '../app/globals.css'
+import "../app/globals.css";
+import Footer from "@/components/Footer";
 
 export default function ClinicsPage() {
   const [showThankYou, setShowThankYou] = useState(false);
@@ -125,178 +126,189 @@ export default function ClinicsPage() {
   };
 
   return (
-    <div className=" top-0 left-0 flex flex-col items-center text-black w-full overflow-auto h-full">
-       <canvas
-        ref={canvasRef}
-        className={`${styles.fullscreenCanvas}`}
-        style={{
-          opacity: showCanvas ? 0.05 : 0,
-          mixBlendMode: "normal",
-          transition: "opacity 0.7s ease-in-out",
-        }}
-      />
-     <NavBar />
+    <>
+      <div
+        className={`${styles.clinics} top-0 left-0 flex flex-col items-center text-black w-full overflow-auto h-full`}
+      >
+        <canvas
+          ref={canvasRef}
+          className={`${styles.fullscreenCanvas}`}
+          style={{
+            opacity: showCanvas ? 0.05 : 0,
+            mixBlendMode: "normal",
+            transition: "opacity 0.7s ease-in-out",
+          }}
+        />
+        <NavBar />
 
-    <div
-      className={`${styles.container} ${showThankYou ? styles.noOutline : ""}`}
-    >
-      {/* ✅ Canvas with fade-in opacity */}
+        <div
+          className={`${styles.container} ${
+            showThankYou ? styles.noOutline : ""
+          }`}
+        >
+          {/* ✅ Canvas with fade-in opacity */}
 
-      {!showThankYou && (
-        <div id="form-section">
-          <h1 className={styles.h1}>Clinics & Team Building</h1>
-          <form
-            className={styles.form}
-            method="POST"
-            action="https://formspree.io/f/mwpbdbvd"
-            onSubmit={handleSubmit}
-          >
-            <input type="hidden" name="_redirect" value="thank-you.html" />
-
-            <div>
-              <label htmlFor="groupType">Group Type</label>
-              <select
-                id="groupType"
-                name="groupType"
-                required
-                className={styles.select}
+          {!showThankYou && (
+            <div id="form-section">
+              <h1 className={styles.h1}>Clinics & Team Building</h1>
+              <form
+                className={styles.form}
+                method="POST"
+                action="https://formspree.io/f/mwpbdbvd"
+                onSubmit={handleSubmit}
               >
-                <option value="" disabled selected>
-                  Select
-                </option>
-                <option value="private">Private</option>
-                <option value="business">Business</option>
-                <option value="school">School / Club</option>
-              </select>
-            </div>
+                <input type="hidden" name="_redirect" value="thank-you.html" />
 
-            <div>
-              <label htmlFor="date">Preferred Date</label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                required
-                className={styles.input}
-              />
-            </div>
+                <div>
+                  <label htmlFor="groupType">Group Type</label>
+                  <select
+                    id="groupType"
+                    name="groupType"
+                    required
+                    className={styles.select}
+                  >
+                    <option value="" disabled selected>
+                      Select
+                    </option>
+                    <option value="private">Private</option>
+                    <option value="business">Business</option>
+                    <option value="school">School / Club</option>
+                  </select>
+                </div>
 
-            <div>
-              <label htmlFor="timeInput">Preferred Start Time</label>
-              <div className={styles.timePicker}>
-                <button type="button" onClick={() => adjustTime(-15)}>
-                  –
+                <div>
+                  <label htmlFor="date">Preferred Date</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                    className={styles.input}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="timeInput">Preferred Start Time</label>
+                  <div className={styles.timePicker}>
+                    <button type="button" onClick={() => adjustTime(-15)}>
+                      –
+                    </button>
+                    <input
+                      type="time"
+                      id="timeInput"
+                      name="time"
+                      required
+                      step="900"
+                    />
+                    <button type="button" onClick={() => adjustTime(15)}>
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="participants">Number of Participants</label>
+                  <input
+                    type="number"
+                    id="participants"
+                    name="participants"
+                    required
+                    min="15"
+                    placeholder="Minimum 15"
+                    className={styles.input}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="duration">Session Duration</label>
+                  <select
+                    id="duration"
+                    name="duration"
+                    required
+                    className={styles.select}
+                    onChange={(e) =>
+                      setCustomDuration(e.target.value === "custom")
+                    }
+                  >
+                    <option value="" disabled selected>
+                      Select
+                    </option>
+                    <option value="1.5">1.5 hours</option>
+                    <option value="2">2 hours</option>
+                    <option value="3">3 hours</option>
+                    <option value="custom">Custom</option>
+                  </select>
+                  {customDuration && (
+                    <input
+                      type="text"
+                      id="customDuration"
+                      name="customDuration"
+                      placeholder="Describe your request"
+                      required
+                      className={styles.customDurationInput}
+                    />
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="contactName">Contact Name</label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="contactName"
+                    required
+                    className={styles.input}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="contactEmail">Email Address</label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    required
+                    className={styles.input}
+                  />
+                </div>
+
+                <button type="submit" className={styles.submitBtn}>
+                  Book Now
                 </button>
-                <input
-                  type="time"
-                  id="timeInput"
-                  name="time"
-                  required
-                  step="900"
-                />
-                <button type="button" onClick={() => adjustTime(15)}>
-                  +
-                </button>
-              </div>
+              </form>
             </div>
+          )}
 
-            <div>
-              <label htmlFor="participants">Number of Participants</label>
-              <input
-                type="number"
-                id="participants"
-                name="participants"
-                required
-                min="15"
-                placeholder="Minimum 15"
-                className={styles.input}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="duration">Session Duration</label>
-              <select
-                id="duration"
-                name="duration"
-                required
-                className={styles.select}
-                onChange={(e) => setCustomDuration(e.target.value === "custom")}
+          {showThankYou && (
+            <div className={styles.thankYou} role="alert" aria-live="polite">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="64"
+                height="64"
+                fill="none"
+                stroke="#0d0c0b"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
               >
-                <option value="" disabled selected>
-                  Select
-                </option>
-                <option value="1.5">1.5 hours</option>
-                <option value="2">2 hours</option>
-                <option value="3">3 hours</option>
-                <option value="custom">Custom</option>
-              </select>
-              {customDuration && (
-                <input
-                  type="text"
-                  id="customDuration"
-                  name="customDuration"
-                  placeholder="Describe your request"
-                  required
-                  className={styles.customDurationInput}
-                />
-              )}
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <h1>Thank you for your booking!</h1>
+              <p>
+                We’ve received your request and will get back to you shortly.
+              </p>
+              <button
+                className={styles.backBtn}
+                onClick={() => setShowThankYou(false)}
+              >
+                ← Back to form
+              </button>
             </div>
-
-            <div>
-              <label htmlFor="contactName">Contact Name</label>
-              <input
-                type="text"
-                id="contactName"
-                name="contactName"
-                required
-                className={styles.input}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="contactEmail">Email Address</label>
-              <input
-                type="email"
-                id="contactEmail"
-                name="contactEmail"
-                required
-                className={styles.input}
-              />
-            </div>
-
-            <button type="submit" className={styles.submitBtn}>
-              Book Now
-            </button>
-          </form>
+          )}
         </div>
-      )}
-
-      {showThankYou && (
-        <div className={styles.thankYou} role="alert" aria-live="polite">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="64"
-            height="64"
-            fill="none"
-            stroke="#0d0c0b"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            viewBox="0 0 24 24"
-          >
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
-          <h1>Thank you for your booking!</h1>
-          <p>We’ve received your request and will get back to you shortly.</p>
-          <button
-            className={styles.backBtn}
-            onClick={() => setShowThankYou(false)}
-          >
-            ← Back to form
-          </button>
-        </div>
-      )}
-    </div>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }

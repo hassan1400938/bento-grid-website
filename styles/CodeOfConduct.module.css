@@ -1,13 +1,5 @@
 /* CodeOfConduct.module.css */
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: #f1eee7;
-
-}
-
 .fullscreenCanvas {
   position: fixed;
   top: 0;

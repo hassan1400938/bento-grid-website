@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/CodeOfConduct.module.css";
 import NavBar from "@/components/NavBar";
-import '../app/globals.css';
+import "../app/globals.css";
+import Footer from "@/components/Footer";
 const sections = [
   {
     title: "1. Everyone is welcome",
@@ -168,104 +169,111 @@ export default function CodeOfConduct() {
   }, []);
 
   return (
-    <div className=" top-0 h-full text-black w-full left-0 overflow-hidden">
-         <canvas
-        ref={canvasRef}
-        className={`${styles.fullscreenCanvas}`}
-        style={{
-          opacity: showCanvas ? 0.05 : 0,
-          mixBlendMode: "normal",
-          transition: "opacity 0.7s ease-in-out",
-        }}
-      />
-      <NavBar />
-    <div className={styles.wrapper}>
-      {/* ✅ Canvas background */}
-   
+    <>
+      <div className=" top-0 h-full text-black w-full left-0 overflow-hidden">
+        <canvas
+          ref={canvasRef}
+          className={`${styles.fullscreenCanvas}`}
+          style={{
+            opacity: showCanvas ? 0.05 : 0,
+            mixBlendMode: "normal",
+            transition: "opacity 0.7s ease-in-out",
+          }}
+        />
+        <NavBar />
+        <div className={styles.wrapper}>
+          {/* ✅ Canvas background */}
 
-      <main className={styles.container}>
-        <h1 className={styles.heading}>Code of Conduct</h1>
+          <main className={styles.container}>
+            <h1 className={styles.heading}>Code of Conduct</h1>
 
-        <div role="region" aria-label="Code of Conduct">
-          {sections.map((section, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <section key={index} className={styles.accordionItem}>
-                <button
-                  className={styles.accordionButton}
-                  aria-expanded={isOpen}
-                  aria-controls={`sec${index}`}
-                  id={`btn${index}`}
-                  onClick={() => toggleAccordion(index)}
-                >
-                  {section.title}
-                </button>
-                <div
-                  id={`sec${index}`}
-                  className={`${styles.accordionPanel} ${
-                    isOpen ? styles.accordionPanelOpen : ""
-                  }`}
-                  role="region"
-                  aria-labelledby={`btn${index}`}
-                  style={{ maxHeight: isOpen ? "500px" : "0" }}
-                >
-                  {section.content}
-                </div>
-              </section>
-            );
-          })}
-        </div>
+            <div role="region" aria-label="Code of Conduct">
+              {sections.map((section, index) => {
+                const isOpen = openIndex === index;
+                return (
+                  <section key={index} className={styles.accordionItem}>
+                    <button
+                      className={styles.accordionButton}
+                      aria-expanded={isOpen}
+                      aria-controls={`sec${index}`}
+                      id={`btn${index}`}
+                      onClick={() => toggleAccordion(index)}
+                    >
+                      {section.title}
+                    </button>
+                    <div
+                      id={`sec${index}`}
+                      className={`${styles.accordionPanel} ${
+                        isOpen ? styles.accordionPanelOpen : ""
+                      }`}
+                      role="region"
+                      aria-labelledby={`btn${index}`}
+                      style={{ maxHeight: isOpen ? "500px" : "0" }}
+                    >
+                      {section.content}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
 
-        <section className={styles.quickStart} aria-label="Quick Start Guide">
-          <h2 className={styles.quickStartTitle}>
-            Quick Start Guide for First-Time Dodgers
-          </h2>
-          <ul className={styles.quickStartList}>
-            <li>
-              <strong>Game Start:</strong> Keep one foot on the back line at
-              start. Run forward to grab a ball from your side’s corner. Don’t
-              cross center line — if you do, you’re OUT.
-            </li>
-            <li>
-              <strong>Getting Someone Out:</strong> Hit them with a ball =
-              they’re OUT. Catch a ball = thrower is OUT & one teammate returns.
-              Block with your ball — ball stays live, so be alert.
-            </li>
-            <li>
-              <strong>Keep the Game Moving:</strong> If your team has more
-              balls, you have 10 seconds to throw. After 5 seconds, ref counts.
-              No throw in 10 seconds? You lose your balls to other team.
-            </li>
-            <li>
-              <strong>Common Mistakes to Avoid:</strong> False starts: 2
-              warnings → play with 5 players. Stepping over center line = OUT.
-              No cheating, swearing, or dangerous throws — you get carded.
-            </li>
-            <li>
-              <strong>Cards = Penalties:</strong> Yellow Card = 5 min time-out.
-              Red Card = out of game + next 2 matches. 4 yellow cards = match
-              over.
-            </li>
-            <li>
-              <strong>The Ref is the Boss:</strong> Referee makes calls. Protest
-              up to 2 times/match — only coach can protest.
-            </li>
-          </ul>
-          <p className={styles.quickStartParagraph}>
-            See the full official rules in the{" "}
-            <a
-              className={styles.quickStartLink}
-              href="https://worlddodgeballfederation.com/wdbf-content/uploads/2024/03/WDBF-Dodgeball-Rules-2024.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <section
+              className={styles.quickStart}
+              aria-label="Quick Start Guide"
             >
-              World Dodgeball Federation PDF
-            </a>
-            .
-          </p>
-        </section>
-      </main>
-    </div>
-    </div>
+              <h2 className={styles.quickStartTitle}>
+                Quick Start Guide for First-Time Dodgers
+              </h2>
+              <ul className={styles.quickStartList}>
+                <li>
+                  <strong>Game Start:</strong> Keep one foot on the back line at
+                  start. Run forward to grab a ball from your side’s corner.
+                  Don’t cross center line — if you do, you’re OUT.
+                </li>
+                <li>
+                  <strong>Getting Someone Out:</strong> Hit them with a ball =
+                  they’re OUT. Catch a ball = thrower is OUT & one teammate
+                  returns. Block with your ball — ball stays live, so be alert.
+                </li>
+                <li>
+                  <strong>Keep the Game Moving:</strong> If your team has more
+                  balls, you have 10 seconds to throw. After 5 seconds, ref
+                  counts. No throw in 10 seconds? You lose your balls to other
+                  team.
+                </li>
+                <li>
+                  <strong>Common Mistakes to Avoid:</strong> False starts: 2
+                  warnings → play with 5 players. Stepping over center line =
+                  OUT. No cheating, swearing, or dangerous throws — you get
+                  carded.
+                </li>
+                <li>
+                  <strong>Cards = Penalties:</strong> Yellow Card = 5 min
+                  time-out. Red Card = out of game + next 2 matches. 4 yellow
+                  cards = match over.
+                </li>
+                <li>
+                  <strong>The Ref is the Boss:</strong> Referee makes calls.
+                  Protest up to 2 times/match — only coach can protest.
+                </li>
+              </ul>
+              <p className={styles.quickStartParagraph}>
+                See the full official rules in the{" "}
+                <a
+                  className={styles.quickStartLink}
+                  href="https://worlddodgeballfederation.com/wdbf-content/uploads/2024/03/WDBF-Dodgeball-Rules-2024.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  World Dodgeball Federation PDF
+                </a>
+                .
+              </p>
+            </section>
+          </main>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }

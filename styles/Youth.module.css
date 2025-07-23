@@ -1,14 +1,13 @@
 /* Youth.module.css */
 
-:root {
+.youth {
   --black: #0d0c0b;
   --white: #f1eee7;
   --primary: #0d0c0b;
   --ease: cubic-bezier(0.19, 1, 0.22, 1);
-  --font-family: "Inter", sans-serif;
 }
 
-html,
+/* html,
 body {
   margin: 0;
   padding: 0;
@@ -17,7 +16,7 @@ body {
   background: var(--white);
   color: var(--black);
   overflow: hidden;
-}
+} */
 
 .app {
   height: 100%;
@@ -35,6 +34,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  margin-bottom: 100px;
   padding: 0 1.25rem;
   /* background: var(--white); */
   transition: opacity 0.5s var(--ease);

@@ -2,14 +2,14 @@
 
 html,
 body {
+  font-family: "Inter", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  background-color: #f5e2cf;
-  color: #ffffff;
+  background-color: #f5e6d3;
+  /* color: #ffffff; */
 }
-
 
 #loader {
   position: fixed;
@@ -23,7 +23,7 @@ body {
   animation-delay: 2s; /* after fill completes */
 }
 
-.logo-wrapper{
+.logo-wrapper {
   animation: logoSlideUp 0.8s ease-in-out forwards;
   position: absolute;
   opacity: 0.5;
@@ -40,16 +40,13 @@ body {
 .logo-loader {
   width: 200px;
   height: auto;
-
 }
 
 /* === INITIAL OUTLINE STYLE === */
 
-
-
 @keyframes logoSlideUp {
   to {
-    transform: translate(-50%,-100%);
+    transform: translate(-50%, -100%);
     opacity: 1;
   }
 }
@@ -59,4 +56,3 @@ body {
     transform: translateY(-100%);
   }
 }
-

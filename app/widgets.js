@@ -10,39 +10,37 @@ export const widgets = [
   {
     id: 1,
     component: <SpotifyListWidget />,
-    col: "col-span-6 md:col-span-3",
+    col: "col-span-10 md:col-span-4",
     row: "row-span-2",
   },
   {
     id: 2,
     component: <WhatsappWidget />,
-    col: "col-span-6 md:col-span-3",
+    col: "col-span-10 md:col-span-4",
     row: "row-span-2",
   },
-
   {
     id: 3,
     component: <TixMembershipWidget />,
-    col: "col-span-12 md:col-span-6",
+    col: "col-span-20 md:col-span-8",
     row: "row-span-4",
   },
-
   {
     id: 4,
-    component: <CalendarWidget />,
-    col: "col-span-6 md:col-span-3",
-    row: "row-span-2",
+    component: <ClinicWidget />,
+    col: "col-span-10 md:col-span-4",
+    row: "row-span-4",
   },
   {
     id: 5,
-    component: <DiscordWidget />,
-    col: "col-span-6 md:col-span-3",
+    component: <CalendarWidget />,
+    col: "col-span-10 md:col-span-4",
     row: "row-span-2",
   },
   {
     id: 6,
-    component: <ClinicWidget />,
-    col: "col-span-12 md:col-span-3",
-    row: "row-span-4",
+    component: <DiscordWidget />,
+    col: "col-span-10 md:col-span-4",
+    row: "row-span-2",
   },
 ];

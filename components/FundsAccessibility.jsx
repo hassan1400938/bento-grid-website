@@ -97,15 +97,18 @@ export default function FundsAccessibility() {
   };
 
   return (
-    <div ref={sectionRef} className="relative z-[50]">
+    <div
+      ref={sectionRef}
+      className={`${styles.fundsAccessibility} relative z-[50]`}
+    >
       <div className="absolute -top-[3px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
-   <svg
-  viewBox="0 0 1440 14"
-  xmlns="http://www.w3.org/2000/svg"
-  preserveAspectRatio="none"
->
-  <path
-    d="
+        <svg
+          viewBox="0 0 1440 14"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="
       M0,7
       C10,4 20,10 30,7
       C40,5 50,9 60,7
@@ -159,9 +162,9 @@ export default function FundsAccessibility() {
       L1440,14
       L0,14
       Z"
-    fill="#F1EEE7"
-  />
-</svg>
+            fill="#F1EEE7"
+          />
+        </svg>
       </div>
 
       <div className={`${styles.container}  relative z-50`}>

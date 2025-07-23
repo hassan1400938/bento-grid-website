@@ -202,7 +202,7 @@ export default function HomePage() {
 
   return (
     <>
-   <Preloader />
+      <Preloader />
 
       <main className="flex flex-col w-full min-h-screen overflow-hidden relative text-black">
         <canvas
@@ -218,7 +218,7 @@ export default function HomePage() {
           <NavBar />
 
           {/* Updated Widget Grid */}
-          <div className="grid grid-cols-12 relative z-50 gap-4 grid-flow-dense auto-rows-[72px] mx-auto md:mt-40 mb-40 max-w-[336px] md:max-w-[688px]">
+          <div className="grid grid-cols-20 relative z-50 gap-4 grid-flow-dense auto-rows-[72px] mx-auto md:mt-40 mb-40 max-w-[336px] md:max-w-[864px]">
             {widgets.slice(0, visibleCount).map((w, i) => (
               <Widget
                 key={w.id}
@@ -250,7 +250,11 @@ export default function HomePage() {
           <div id="sessions" className="min-h-[100vh]" ref={addToSectionRefs}>
             <UpcomingSessions />
           </div>
-          <div id="memberships" className="min-h-[100vh]" ref={addToSectionRefs}>
+          <div
+            id="memberships"
+            className="min-h-[100vh]"
+            ref={addToSectionRefs}
+          >
             <PricingPlans />
           </div>
           <div
@@ -260,20 +264,20 @@ export default function HomePage() {
           >
             <FundsAccessibility />
           </div>
-          <div
+          {/* <div
             id="sponsors"
             className="min-h-screen flex items-center justify-center"
             ref={addToSectionRefs}
           >
             <Sponsors />
-          </div>
-          <div
+          </div> */}
+          {/* <div
             id="locations"
             className="bg-[#f1eee7] min-h-[100vh]"
             ref={addToSectionRefs}
           >
             <Locations />
-          </div>
+          </div> */}
           <div id="reviews" className="min-h-[100vh]" ref={addToSectionRefs}>
             <Reviews />
           </div>
