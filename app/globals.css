@@ -33,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
   justify-content: center;
 }
 
@@ -40,6 +41,37 @@ body {
 .logo-loader {
   width: 200px;
   height: auto;
+}
+
+.logo-loader path {
+  stroke: white;
+  stroke-width: 2;
+  fill: white;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 2s ease forwards, clipReveal 2s ease 2s forwards;
+  clip-path: inset(100% 0 0 0);
+}
+
+/* Reveal the fill from bottom to top */
+@keyframes clipReveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* rise-from-bottom fill animation */
+@keyframes fillUp {
+  to {
+    transform: scaleY(1);
+    fill: white;
+  }
 }
 
 /* === INITIAL OUTLINE STYLE === */
