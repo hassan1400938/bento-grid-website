@@ -39,26 +39,27 @@ export default function YouthPage() {
     let isAnimating = false;
     let inactivityTimeout;
   
-    const drawNoise = () => {
-      const w = canvas.width / dpr;
-      const h = canvas.height / dpr;
-      ctx.clearRect(0, 0, w, h);
-  
-      const dotCount = 2000;
-      for (let i = 0; i < dotCount; i++) {
-        const x = Math.random() * w;
-        const y = Math.random() * h;
-        const radius = Math.random() * 1.5 + 0.5;
-        const alpha = Math.random() * 0.2 + 0.1;
-        const r = Math.floor(200 + Math.random() * 55);
-        const g = Math.floor(200 + Math.random() * 55);
-        const b = Math.floor(200 + Math.random() * 55);
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        ctx.fill();
-      }
-    };
+      const drawNoise = () => {
+        const w = canvas.width / dpr;
+        const h = canvas.height / dpr;
+        ctx.clearRect(0, 0, w, h);
+    
+        const dotCount = 1500;
+        for (let i = 0; i < dotCount; i++) {
+          const x = Math.random() * w;
+          const y = Math.random() * h;
+          const radius = Math.random() * 1 + 0.5;
+          const alpha = Math.random() * 0.2 + 0.1;
+      
+  const r = Math.floor(Math.random() * 55);    // full color range
+  const g = Math.floor(Math.random() * 55);
+  const b = Math.floor(Math.random() * 55);
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+          ctx.fill();
+        }
+      };
   
     const loop = (now) => {
       if (now - lastDraw > interval) {

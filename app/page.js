@@ -73,15 +73,16 @@
         const h = canvas.height / dpr;
         ctx.clearRect(0, 0, w, h);
     
-        const dotCount = 2000;
+        const dotCount = 1500;
         for (let i = 0; i < dotCount; i++) {
           const x = Math.random() * w;
           const y = Math.random() * h;
-          const radius = Math.random() * 1.5 + 0.5;
+          const radius = Math.random() * 1 + 0.5;
           const alpha = Math.random() * 0.2 + 0.1;
-          const r = Math.floor(200 + Math.random() * 55);
-          const g = Math.floor(200 + Math.random() * 55);
-          const b = Math.floor(200 + Math.random() * 55);
+      
+  const r = Math.floor(Math.random() * 55);    // full color range
+  const g = Math.floor(Math.random() * 55);
+  const b = Math.floor(Math.random() * 55);
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
@@ -225,7 +226,7 @@
           <canvas
             ref={canvasRef}
             className={`fixed top-0 left-0 w-full h-full z-40 pointer-events-none transition-opacity duration-700 ease-in-out ${
-              showCanvas ? "opacity-[1]" : "opacity-0"
+              showCanvas ? "opacity-100" : "opacity-0"
             }`}
             style={{ mixBlendMode: "multiply" }}
           />

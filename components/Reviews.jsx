@@ -94,11 +94,11 @@ export default function Reviews() {
 
           {/* ✅ Bottom Row - Scrolls left */}
           <div style={styles.marqueeOuter}>
-            <motion.div
-              drag="x"
-              dragConstraints={{ left: -1000, right: 0 }}
-              style={{ ...styles.marqueeInner, x: x2 }}
-            >
+<motion.div
+  drag="x"
+  dragConstraints={{ left: -1000, right: 0 }}
+  style={{ ...styles.marqueeInner, x: useTransform(x2, value => value - window.innerWidth / 1) }}
+>
               {row2.map((r, i) => (
                 <ReviewCard key={`r2-${i}`} {...r} />
               ))}
