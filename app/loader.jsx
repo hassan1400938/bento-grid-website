@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './globals.css'
 const translations = [
   "Dodgeball",
@@ -14,46 +14,63 @@ const translations = [
 ];
 
 const Preloader = ({ onLoaded }) => {
-  const [visible, setVisible] = useState(true);
-  const [fadeOut, setFadeOut] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showText, setShowText] = useState(true);
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    if (done) return;
-
-    if (currentIndex === translations.length - 1) {
-      setDone(true);
-      setTimeout(() => {
-        setFadeOut(true);
-        setTimeout(() => {
-          setVisible(false);
-          onLoaded?.(); // Notify parent if provided
-        }, 700);
-      }, 1000);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setShowText(false);
-      setTimeout(() => {
-        setCurrentIndex(prev => prev + 1);
-        setShowText(true);
-      }, 200);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [currentIndex, done]);
-
-  if (!visible) return null;
+    const [visible, setVisible] = useState(true);
+    const [fadeOut, setFadeOut] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [showText, setShowText] = useState(true);
+    const [done, setDone] = useState(false);
+  
+    const timeouts = useRef([]);
+  
+    const clearAllTimeouts = () => {
+      timeouts.current.forEach(clearTimeout);
+      timeouts.current = [];
+    };
+  
+    useEffect(() => {
+      if (done) return;
+  
+      if (currentIndex === translations.length - 1) {
+        setDone(true);
+  
+        timeouts.current.push(setTimeout(() => {
+          setFadeOut(true);
+  
+          timeouts.current.push(setTimeout(() => {
+            setVisible(false);
+            onLoaded?.(); // safe check
+          }, 700));
+        }, 1000));
+  
+        return;
+      }
+  
+      // Animate text out, then in
+      timeouts.current.push(setTimeout(() => {
+        setShowText(false);
+  
+        timeouts.current.push(setTimeout(() => {
+          setCurrentIndex(prev => prev + 1);
+          setShowText(true);
+        }, 200));
+      }, 1000));
+  
+      return clearAllTimeouts;
+    }, [currentIndex, done, onLoaded]);
+  
+    useEffect(() => {
+      return clearAllTimeouts;
+    }, []);
+  
+    if (!visible) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-[9999999] bg-black flex flex-col items-center justify-center text-white transition-all duration-700 ${
-        fadeOut ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
-      }`}
-    >
+    className={`fixed inset-0 z-[9999999] bg-black flex flex-col items-center justify-center text-white transition-all duration-700 ${
+      fadeOut ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
+    }`}
+    aria-hidden={!visible}
+  >
        <svg
           className="logo-loader logo-path"
           xmlns="http://www.w3.org/2000/svg"
@@ -175,8 +192,8 @@ const Preloader = ({ onLoaded }) => {
           </g>
            <rect className="fill-mask" />
         </svg>
-      <div className="text-xl mt-6 transition-opacity duration-300 ease-in-out">
-        {showText && translations[currentIndex]}
+        <div className={`mt-6 text-xl font-semibold transition-opacity duration-300 ${showText ? 'opacity-100' : 'opacity-0'}`}>
+        {translations[currentIndex]}
       </div>
     </div>
   );

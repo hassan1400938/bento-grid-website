@@ -16,15 +16,15 @@ const NavBar = () => {
   const contactItemRefs = useRef([]); // 🆕 New ref array for email & phone
 
   const links = [
-    { label: "Start", href: "#start" },
-    { label: "Upcoming Sessions", href: "#sessions" },
+    { label: "Start", href: "/" },
+    { label: "Upcoming Sessions", href: "/#sessions" },
     { label: "Clinics & Team Building", href: "/clinics", external: true },
-    { label: "Memberships", href: "#memberships" },
+    { label: "Memberships", href: "/#memberships" },
     { label: "Youth", href: "/youth", external: true },
-    { label: "Locations", href: "#locations", hidden: true }, // will be hidden
-    { label: "Funds & Accessibility", href: "#funds" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "#contact" },
+    { label: "Locations", href: "/#locations", hidden: true }, // will be hidden
+    { label: "Funds & Accessibility", href: "/#funds" },
+    { label: "FAQ", href: "/#faq" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   const svgIcons = [
@@ -62,63 +62,8 @@ const NavBar = () => {
         d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"
       />
     </svg>,
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <mask id="lineMdTiktok0">
-        <g
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-        >
-          <path
-            fill="#fff"
-            stroke="none"
-            d="M16.6 5.82c-0.68 -0.78 -1.06 -1.78 -1.06 -2.82h-3.09v12.4c-0.02 0.67 -0.31 1.31 -0.79 1.77c-0.48 0.47 -1.13 0.73 -1.8 0.73c-1.42 0 -2.6 -1.16 -2.6 -2.6c0 -1.72 1.66 -3.01 3.37 -2.48v-3.16c-3.45 -0.46 -6.47 2.22 -6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69 -2.55 5.69 -5.7v-6.29c1.25 0.9 2.76 1.38 4.3 1.38v-3.09c0 0 -1.88 0.09 -3.24 -1.48Z"
-          />
-          <path
-            stroke="#000"
-            strokeDasharray="36"
-            strokeDashoffset="72"
-            strokeWidth="4"
-            d="M11 11h-1c-2.21 0 -4.5 1.79 -4.5 4c0 2.21 1.5 4.5 4.5 4.5c2.21 0 4 -2.29 4 -4.5v-12.5"
-          >
-            <animate
-              fill="freeze"
-              attributeName="strokeDashoffset"
-              dur="0.6s"
-              values="72;36"
-            />
-          </path>
-          <path
-            stroke="#000"
-            strokeDasharray="10"
-            strokeDashoffset="20"
-            strokeWidth="4"
-            d="M18 2.5v8"
-          >
-            <animate
-              fill="freeze"
-              attributeName="strokeDashoffset"
-              begin="0.5s"
-              dur="0.1s"
-              values="20;10"
-            />
-          </path>
-        </g>
-      </mask>
-      <rect
-        width="24"
-        height="24"
-        fill="currentColor"
-        mask="url(#lineMdTiktok0)"
-      />
-    </svg>,
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g fill="none"><g clip-path="url(#primeTwitter0)"><path fill="currentColor" d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"/></g><defs><clipPath id="primeTwitter0"><path fill="#fff" d="M0 0h14v14H0z"/></clipPath></defs></g></svg>
+  ,
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -263,7 +208,7 @@ const NavBar = () => {
     const tl = gsap.timeline();
 
     tl.to(linkRefs.current[index], {
-      paddingLeft: "1.5rem",
+      // paddingLeft: "1.5rem",
       duration: 0.3,
       ease: "power2.inOut",
     });
@@ -282,7 +227,7 @@ const NavBar = () => {
 
     tl.to(
       linkRefs.current[index],
-      { paddingLeft: "0rem", duration: 0.3, ease: "power2.inOut" },
+      {  duration: 0.3, ease: "power2.inOut" },
       "-=0.2"
     );
   };
@@ -371,12 +316,12 @@ const NavBar = () => {
                     <a
                       href={link.href}
                       ref={(el) => (linkRefs.current[index] = el)}
-                      className="text-xl leading-none sm:text-[5vh] font-semibold block w-fit"
+                      className="text-xl hover:pl-6 transition-all duration-600 leading-none sm:text-[5vh] lg:text-[6.8vh] font-semibold block w-fit"
                     >
                       {link.label}
                       <div
                         ref={(el) => (boxRefs.current[index] = el)}
-                        className="absolute top-0 left-0 h-full bg-black/30 z-0"
+                        className="absolute top-0 left-0 h-full bg-[#F1EEE7]/90 z-0"
                         style={{
                           width: "100%",
                           transform: "translateX(-100%)",
@@ -384,31 +329,41 @@ const NavBar = () => {
                       />
                     </a>
                   ) : (
-                    <a
-                      href={link.href}
-                      ref={(el) => (linkRefs.current[index] = el)}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const target = document.querySelector(link.href);
-                        if (target) {
-                          target.scrollIntoView({ behavior: "smooth" });
-                        }
-                        setTimeout(() => {
-                          closeMenu();
-                        }, 600);
-                      }}
-                      className="text-xl leading-none sm:text-[5vh] font-semibold block w-fit"
-                    >
-                      {link.label}
-                      <div
-                        ref={(el) => (boxRefs.current[index] = el)}
-                        className="absolute top-0 left-0 h-full bg-black/30 z-0"
-                        style={{
-                          width: "100%",
-                          transform: "translateX(-100%)",
-                        }}
-                      />
-                    </a>
+                    <Link
+  href={link.href}
+  ref={(el) => (linkRefs.current[index] = el)}
+  onClick={(e) => {
+    const isSectionLink = link.href.startsWith("/#");
+    if (isSectionLink) {
+      e.preventDefault();
+      const [path, hash] = link.href.split("#");
+      if (window.location.pathname !== path) {
+        // Navigate to homepage first, then scroll to section
+        window.location.href = link.href;
+      } else {
+        // Already on homepage, scroll smoothly
+        const target = document.getElementById(hash);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      setTimeout(() => {
+        closeMenu();
+      }, 600);
+    }
+  }}
+  className="text-xl leading-none hover:pl-6 transition-all duration-600 sm:text-[5vh] lg:text-[6.8vh] font-semibold block w-fit"
+>
+  {link.label}
+  <div
+    ref={(el) => (boxRefs.current[index] = el)}
+    className="absolute top-0 left-0 h-full bg-[#F1EEE7]/90 z-0"
+    style={{
+      width: "100%",
+      transform: "translateX(-100%)",
+    }}
+  />
+</Link>
                   )}
                 </div>
               </div>
