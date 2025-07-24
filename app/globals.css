@@ -44,47 +44,24 @@ body {
 }
 
 .logo-loader path {
-  stroke: white;
-  stroke-width: 2;
-  fill: white;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: draw 2s ease forwards, clipReveal 2s ease 2s forwards;
-  clip-path: inset(100% 0 0 0);
+  fill: gray; /* initial color */
+  clip-path: inset(100% 0 0 0); /* fully clipped (hidden) */
+  animation: fillUp 1s ease-in-out 1s forwards;
 }
 
-/* Reveal the fill from bottom to top */
-@keyframes clipReveal {
-  to {
+@keyframes fillUp {
+  0% {
+    fill: gray;
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    fill: white;
     clip-path: inset(0 0 0 0);
   }
 }
 
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
 
-/* rise-from-bottom fill animation */
-@keyframes fillUp {
-  to {
-    transform: scaleY(1);
-    fill: white;
-  }
-}
-
-/* === INITIAL OUTLINE STYLE === */
-
-@keyframes logoSlideUp {
-  to {
-    transform: translate(-50%, -100%);
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  to {
-    transform: translateY(-100%);
-  }
+/* Hide scrollbar for Chrome, Safari and Opera */
+.marqueeInner::-webkit-scrollbar {
+  display: none;
 }
