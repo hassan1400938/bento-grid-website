@@ -1,55 +1,26 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import React, { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue
+} from "framer-motion";
 
 const reviews = [
-  {
-    name: "Cindy",
-    text: "I really love being part of this dodgeball community! Everyone is super friendly and welcoming.",
-  },
-  {
-    name: "Tijmen",
-    text: "I had such a great day!! I loved dodgeball in high-school, and I was just as fanatic as then.",
-  },
-  {
-    name: "Lotte",
-    text: "I had such a fun and active day. It's a great way to meet new people while doing something sporty.",
-  },
-  {
-    name: "Lucas",
-    text: "Joining as a complete beginner, I still felt welcome. There's a good balance of games and coaching.",
-  },
-  {
-    name: "Anastasia",
-    text: "I had such a fun time! It was a great way to get active and meet some really lovely people.",
-  },
-  {
-    name: "Daniel",
-    text: "Didn’t think I’d get into dodgeball again haha, but it’s seriously the highlight of my week now!",
-  },
-  {
-    name: "Evelina",
-    text: "I usually stay quiet in groups but this felt so safe and fun!!! Honestly one of the best things I’ve joined.",
-  },
-  {
-    name: "Marva",
-    text: "Came alone and was sooo nervous, but I felt at home right away!",
-  },
-  {
-    name: "James",
-    text: "This group really came out of nowhere but has quickly become the main event of my week.",
-  },
-  {
-    name: "Jeffrey",
-    text: "Super fun dodgeball club! It reminds me of gym class in school. Very welcoming and chill vibe.",
-  },
+  { name: "Cindy", text: "I really love being part of this dodgeball community! Everyone is super friendly and welcoming." },
+  { name: "Tijmen", text: "I had such a great day!! I loved dodgeball in high-school, and I was just as fanatic as then." },
+  { name: "Lotte", text: "I had such a fun and active day. It's a great way to meet new people while doing something sporty." },
+  { name: "Lucas", text: "Joining as a complete beginner, I still felt welcome. There's a good balance of games and coaching." },
+  { name: "Anastasia", text: "I had such a fun time! It was a great way to get active and meet some really lovely people." },
+  { name: "Daniel", text: "Didn’t think I’d get into dodgeball again haha, but it’s seriously the highlight of my week now!" },
+  { name: "Evelina", text: "I usually stay quiet in groups but this felt so safe and fun!!! Honestly one of the best things I’ve joined." },
+  { name: "Marva", text: "Came alone and was sooo nervous, but I felt at home right away!" },
+  { name: "James", text: "This group really came out of nowhere but has quickly become the main event of my week." },
+  { name: "Jeffrey", text: "Super fun dodgeball club! It reminds me of gym class in school. Very welcoming and chill vibe." },
 ];
 
-// ✅ Review card
 const ReviewCard = ({ name, text }) => (
   <div style={styles.card}>
     <p style={styles.cardText}>“{text}”</p>
@@ -60,7 +31,6 @@ const ReviewCard = ({ name, text }) => (
   </div>
 );
 
-// ✅ Write a review card (neutral style)
 const WriteReviewCard = () => (
   <div style={{ ...styles.card, background: "#fefaf1", border: "none" }}>
     <p style={styles.cardText}>
@@ -72,64 +42,31 @@ const WriteReviewCard = () => (
 );
 
 export default function Reviews() {
-  const row1Ref = useRef(null);
-  const row2Ref = useRef(null);
   const containerRef = useRef(null);
 
-  // ✅ Split into two rows and inject WriteReviewCard into row1
+  // Page scroll value
+  const { scrollY } = useScroll();
+
+  // Manual drag values
+  const dragX1 = useMotionValue(0);
+  const dragX2 = useMotionValue(0);
+
+  // ✅ Scroll-based horizontal movement
+  const scrollOffset1 = useTransform(scrollY, (val) => -val * 0.2);  
+  const scrollOffset2 = useTransform(scrollY, (val) => val * 0.2);  
+
+  // Combine drag + scroll
+  const x1 = useTransform([dragX1, scrollOffset1], ([drag, scroll]) => drag + scroll);
+  const x2 = useTransform([dragX2, scrollOffset2], ([drag, scroll]) => drag + scroll);
+
+  // Split reviews
   const half = Math.ceil(reviews.length / 2);
   const row1 = [...reviews.slice(0, half)];
   const row2 = [...reviews.slice(half)];
-
-  // ✅ Insert WriteReviewCard in middle of row1
   row1.splice(Math.floor(row1.length / 2), 0, { isWriteCard: true });
-
-useEffect(() => {
-  const r1 = row1Ref.current;
-  const r2 = row2Ref.current;
-
-  const row1Width = r1.scrollWidth;
-  const row2Width = r2.scrollWidth;
-  const containerWidth = r1.parentElement.clientWidth;
-
-  // Start row1 completely offscreen to the left
-  gsap.set(r1, { x: -row1Width });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: containerRef.current,
-      start: "top 80%",
-      end: "bottom top",
-      scrub: 0.6,
-    },
-  });
-
-  // Move row1 into view from -row1Width to 0
-  tl.to(r1, {
-    x: 0,
-    ease: "none",
-  }, 0);
-
-  // Animate row2 from right to left as usual
-  tl.to(r2, {
-    x: -(row2Width - containerWidth),
-    ease: "none",
-  }, 0);
-
-  return () => tl.kill();
-}, []);
 
   return (
     <div className="relative z-[50]" ref={containerRef}>
-      <div className="absolute -top-[2px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
-        <svg viewBox="0 0 1440 14" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path
-            d="M0,7 C10,4 20,10 30,7 C40,5 50,9 60,7 C70,6 80,8 90,7 C100,5 110,9 120,7 C130,6 140,8 150,7 C160,4 170,10 180,7 C190,6 200,8 210,7 C220,5 230,9 240,7 C250,6 260,8 270,7 C280,4 290,10 300,7 C310,5 320,9 330,7 C340,6 350,8 360,7 C370,5 380,9 390,7 C400,6 410,8 420,7 C430,4 440,10 450,7 C460,5 470,9 480,7 C490,6 500,8 510,7 C520,5 530,9 540,7 C550,6 560,8 570,7 C580,4 590,10 600,7 C610,6 620,8 630,7 C640,5 650,9 660,7 C670,6 680,8 690,7 C700,4 710,10 720,7 C730,5 740,9 750,7 C760,6 770,8 780,7 C790,5 800,9 810,7 C820,6 830,8 840,7 C850,4 860,10 870,7 C880,5 890,9 900,7 C910,6 920,8 930,7 C940,5 950,9 960,7 C970,6 980,8 990,7 C1000,4 1010,10 1020,7 C1030,5 1040,9 1050,7 C1060,6 1070,8 1080,7 C1090,5 1100,9 1110,7 C1120,6 1130,8 1140,7 C1150,4 1160,10 1170,7 C1180,5 1190,9 1200,7 C1210,6 1220,8 1230,7 C1240,5 1250,9 1260,7 C1270,6 1280,8 1290,7 C1300,4 1310,10 1320,7 C1330,5 1340,9 1350,7 C1360,6 1370,8 1380,7 C1390,5 1400,9 1410,7 C1420,6 1430,8 1440,7 L1440,14 L0,14 Z"
-            fill="#111111"
-          />
-        </svg>
-      </div>
-
       <section style={styles.section}>
         <div className="px-4">
           <div style={styles.stars}>★★★★★</div>
@@ -142,20 +79,30 @@ useEffect(() => {
         </div>
 
         <div style={styles.marqueeWrapper}>
+          {/* ✅ Top Row - Scrolls right */}
           <div style={styles.marqueeOuter}>
-            <div style={styles.marqueeInner} ref={row1Ref}>
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: -1000, right: 0 }}
+              style={{ ...styles.marqueeInner, x: x1 }}
+            >
               {row1.map((r, i) =>
                 r.isWriteCard ? <WriteReviewCard key="write" /> : <ReviewCard key={`r1-${i}`} {...r} />
               )}
-            </div>
+            </motion.div>
           </div>
 
+          {/* ✅ Bottom Row - Scrolls left */}
           <div style={styles.marqueeOuter}>
-            <div style={styles.marqueeInner} ref={row2Ref}>
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: -1000, right: 0 }}
+              style={{ ...styles.marqueeInner, x: x2 }}
+            >
               {row2.map((r, i) => (
                 <ReviewCard key={`r2-${i}`} {...r} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -165,7 +112,7 @@ useEffect(() => {
 
 const styles = {
   section: {
-    padding: "64px 0px",
+    padding: "64px 16px",
     textAlign: "center",
     background: "#0d0c0b",
     color: "#fff",
@@ -210,6 +157,8 @@ const styles = {
     gap: 16,
     width: "max-content",
     alignItems: "stretch",
+    userSelect: "none",
+    cursor: "grab",
   },
   card: {
     background: "#fefaf1",

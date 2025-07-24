@@ -253,7 +253,7 @@ export default function TermsOfService() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const dpr = window.devicePixelRatio || 1;
-
+  
     const setSize = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -265,36 +265,35 @@ export default function TermsOfService() {
     };
     setSize();
     window.addEventListener("resize", setSize);
-
+  
     let animationFrame;
     let lastDraw = 0;
     const fps = 12;
     const interval = 1000 / fps;
-
-   const drawNoise = () => {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  ctx.clearRect(0, 0, w, h);
-
-  const dotCount = 4000;
-  for (let i = 0; i < dotCount; i++) {
-    const x = Math.random() * w;
-    const y = Math.random() * h;
-    const radius = Math.random() * 2 + 0.5;
-    const alpha = Math.random() * 0.2 + 0.1; // keep low alpha
-
-    const r = Math.floor(200 + Math.random() * 55); // brighter range
-    const g = Math.floor(200 + Math.random() * 55);
-    const b = Math.floor(200 + Math.random() * 55);
-
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    ctx.fill();
-  }
-};
-
-
+    let isAnimating = false;
+    let inactivityTimeout;
+  
+    const drawNoise = () => {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+  
+      const dotCount = 2000;
+      for (let i = 0; i < dotCount; i++) {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+        const radius = Math.random() * 1.5 + 0.5;
+        const alpha = Math.random() * 0.2 + 0.1;
+        const r = Math.floor(200 + Math.random() * 55);
+        const g = Math.floor(200 + Math.random() * 55);
+        const b = Math.floor(200 + Math.random() * 55);
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        ctx.fill();
+      }
+    };
+  
     const loop = (now) => {
       if (now - lastDraw > interval) {
         drawNoise();
@@ -302,30 +301,43 @@ export default function TermsOfService() {
       }
       animationFrame = requestAnimationFrame(loop);
     };
-
-    let hasStarted = false;
-
+  
     const startAnimation = () => {
-      if (hasStarted) return;
-      hasStarted = true;
-      setShowCanvas(true);
-      animationFrame = requestAnimationFrame(loop);
-      window.removeEventListener("scroll", startAnimation);
-      window.removeEventListener("wheel", startAnimation);
+      if (!isAnimating) {
+        isAnimating = true;
+        setShowCanvas(true);
+        animationFrame = requestAnimationFrame(loop);
+      }
+      clearTimeout(inactivityTimeout);
+      inactivityTimeout = setTimeout(stopAnimation, 800); // stop if no activity for 800ms
     };
-
-    window.addEventListener("scroll", startAnimation);
-    window.addEventListener("wheel", startAnimation);
-
-    // fallback in case scroll never happens
-    const timeout = setTimeout(startAnimation, 3000);
-
+  
+    const stopAnimation = () => {
+      if (isAnimating) {
+        cancelAnimationFrame(animationFrame);
+        isAnimating = false;
+      }
+    };
+  
+    // Events that trigger animation
+    const handleUserActivity = () => {
+      startAnimation();
+    };
+  
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("scroll", handleUserActivity);
+    window.addEventListener("wheel", handleUserActivity);
+  
+    // Draw one static frame at start
+    drawNoise();
+  
     return () => {
       cancelAnimationFrame(animationFrame);
-      clearTimeout(timeout);
+      clearTimeout(inactivityTimeout);
       window.removeEventListener("resize", setSize);
-      window.removeEventListener("scroll", startAnimation);
-      window.removeEventListener("wheel", startAnimation);
+      window.removeEventListener("mousemove", handleUserActivity);
+      window.removeEventListener("scroll", handleUserActivity);
+      window.removeEventListener("wheel", handleUserActivity);
     };
   }, []);
 
