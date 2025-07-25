@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 
 const reviews = [
@@ -90,6 +90,18 @@ export default function Reviews() {
     ([drag, scroll]) => drag + scroll
   );
 
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    // Only runs on client
+    setWindowWidth(window.innerWidth);
+
+    // Optional: update on resize
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Split reviews
   const half = Math.ceil(reviews.length / 2);
   const row1 = [...reviews.slice(0, half)];
@@ -135,7 +147,7 @@ export default function Reviews() {
               dragConstraints={{ left: -1000, right: 0 }}
               style={{
                 ...styles.marqueeInner,
-                x: useTransform(x2, (value) => value - window.innerWidth / 1),
+                x: useTransform(x2, (value) => value - windowWidth / 1),
               }}
             >
               {row2.map((r, i) => (

@@ -233,7 +233,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* <Preloader /> */}
+      <Preloader />
 
       <main className="flex flex-col w-full min-h-screen overflow-hidden relative text-black">
         <canvas
