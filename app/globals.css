@@ -45,18 +45,18 @@ body {
 
 .logo-loader path {
   fill: gray; /* initial color */
-  clip-path: inset(100% 0 0 0); /* fully clipped (hidden) */
+  clipPath: inset(100% 0 0 0); /* fully clipped (hidden) */
   animation: fillUp 1s ease-in-out 1s forwards;
 }
 
 @keyframes fillUp {
   0% {
     fill: gray;
-    clip-path: inset(100% 0 0 0);
+    clipPath: inset(100% 0 0 0);
   }
   100% {
     fill: white;
-    clip-path: inset(0 0 0 0);
+    clipPath: inset(0 0 0 0);
   }
 }
 

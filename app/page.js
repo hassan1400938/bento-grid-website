@@ -73,21 +73,33 @@
         const h = canvas.height / dpr;
         ctx.clearRect(0, 0, w, h);
     
-        const dotCount = 1500;
-        for (let i = 0; i < dotCount; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const radius = Math.random() * 1 + 0.5;
-          const alpha = Math.random() * 0.2 + 0.1;
-      
-  const r = Math.floor(Math.random() * 55);    // full color range
-  const g = Math.floor(Math.random() * 55);
-  const b = Math.floor(Math.random() * 55);
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-          ctx.fill();
-        }
+        const dotCount = 1000;
+      for (let i = 0; i < dotCount; i++) {
+  const x = Math.random() * w;
+  const y = Math.random() * h;
+  const radius = Math.random() * 0.4 + 0.5;
+  const alpha = Math.random() * 0.2 + 0.1;
+
+  // Randomly pick black or orange
+  const isOrange = Math.random() < 0.5; // 50% chance
+  let r, g, b;
+
+  if (isOrange) {
+    r = 255;
+    g = 165;
+    b = 0;
+  } else {
+    r = 0;
+    g = 0;
+    b = 0;
+  }
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  ctx.fill();
+}
+
       };
     
       const loop = (now) => {
@@ -105,7 +117,7 @@
           animationFrame = requestAnimationFrame(loop);
         }
         clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(stopAnimation, 800); // stop if no activity for 800ms
+        inactivityTimeout = setTimeout(stopAnimation, 30); // stop if no activity for 800ms
       };
     
       const stopAnimation = () => {
