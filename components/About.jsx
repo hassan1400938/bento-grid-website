@@ -117,13 +117,13 @@ export default function About() {
       {/* Decorative Top Curve */}
 
       <div className="absolute -top-[2px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
-         <svg
-  viewBox="0 0 1440 14"
-  xmlns="http://www.w3.org/2000/svg"
-  preserveAspectRatio="none"
->
-  <path
-    d="
+        <svg
+          viewBox="0 0 1440 14"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="
       M0,7
       C10,4 20,10 30,7
       C40,5 50,9 60,7
@@ -177,9 +177,9 @@ export default function About() {
       L1440,14
       L0,14
       Z"
-    fill="#F1EEE7"
-  />
-</svg>
+            fill="#F1EEE7"
+          />
+        </svg>
       </div>
 
       <section className={styles.about}>
@@ -194,13 +194,15 @@ export default function About() {
             <article className={styles.card} aria-label="About Us Info">
               <blockquote className={styles.quote} ref={quoteRef}>
                 <strong>“TURNS OUT, A LOT OF OTHERS</strong>
-                <br />
                 <strong>WERE LOOKING FOR THE SAME THING.”</strong>
               </blockquote>
 
               <p className={styles.intro} ref={introRef}>
                 Gron’s Dodgeball began with a few balls, a gym, and a group of
-                strangers...
+                strangers who quickly found out that laughing together was the
+                best workout. Today, we’ve grown into a welcoming community.
+                It's full of energy, good vibes, and a love for the fun chaos
+                that only dodgeball brings.
               </p>
 
               <p className={styles.paragraph} ref={whyLoveRef}>
@@ -211,19 +213,19 @@ export default function About() {
                 {[
                   {
                     text: "A Real Community:",
-                    desc: " Friendships form on and off the court.",
+                    desc: " We celebrate great catches, laugh at the wild misses, and share high-fives, jokes, and even water bottles.",
                   },
                   {
                     text: "Just Show Up:",
-                    desc: " No teams, no pressure, just fun.",
+                    desc: " No experience needed. Just bring clean indoor shoes and an open mind. We’ll take care of the rest.",
                   },
                   {
                     text: "Play for Joy:",
-                    desc: " Reignite your playful spirit.",
+                    desc: " We keep score, sure. But the real wins are the bad rhymes, team names, and inside jokes that stick with you.",
                   },
                   {
                     text: "Open to All:",
-                    desc: " Everyone is welcome, no experience needed.",
+                    desc: " Weekly games, youth sessions, beginners and veterans. Everyone has a place here, no matter your age or level.",
                   },
                 ].map(({ text, desc }, i) => (
                   <li key={i} ref={addToListRefs}>
@@ -234,7 +236,9 @@ export default function About() {
 
               <p className={styles.paragraph} ref={lastParagraphRef}>
                 Gron’s Dodgeball is more than a sport. It's about connection,
-                laughter, and rediscovering the joy of community.
+                movement, and fun you didn’t know you needed. Whether you're
+                competitive, shy, new or just curious, we’ve got room for you.
+                Come join us. Your spot is already waiting.
               </p>
             </article>
           </div>

@@ -1,24 +1,49 @@
 "use client";
 
 import React, { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue
-} from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 
 const reviews = [
-  { name: "Cindy", text: "I really love being part of this dodgeball community! Everyone is super friendly and welcoming." },
-  { name: "Tijmen", text: "I had such a great day!! I loved dodgeball in high-school, and I was just as fanatic as then." },
-  { name: "Lotte", text: "I had such a fun and active day. It's a great way to meet new people while doing something sporty." },
-  { name: "Lucas", text: "Joining as a complete beginner, I still felt welcome. There's a good balance of games and coaching." },
-  { name: "Anastasia", text: "I had such a fun time! It was a great way to get active and meet some really lovely people." },
-  { name: "Daniel", text: "Didn’t think I’d get into dodgeball again haha, but it’s seriously the highlight of my week now!" },
-  { name: "Evelina", text: "I usually stay quiet in groups but this felt so safe and fun!!! Honestly one of the best things I’ve joined." },
-  { name: "Marva", text: "Came alone and was sooo nervous, but I felt at home right away!" },
-  { name: "James", text: "This group really came out of nowhere but has quickly become the main event of my week." },
-  { name: "Jeffrey", text: "Super fun dodgeball club! It reminds me of gym class in school. Very welcoming and chill vibe." },
+  {
+    name: "Cindy",
+    text: "I really love being part of this dodgeball community! Everyone is super friendly and welcoming.",
+  },
+  {
+    name: "Tijmen",
+    text: "I had such a great day!! I loved dodgeball in high-school, and I was just as fanatic as then.",
+  },
+  {
+    name: "Lotte",
+    text: "I had such a fun and active day. It's a great way to meet new people while doing something sporty.",
+  },
+  {
+    name: "Lucas",
+    text: "Joining as a complete beginner, I still felt welcome. There's a good balance of games and coaching.",
+  },
+  {
+    name: "Anastasia",
+    text: "I had such a fun time! It was a great way to get active and meet some really lovely people.",
+  },
+  {
+    name: "Daniel",
+    text: "Didn’t think I’d get into dodgeball again haha, but it’s seriously the highlight of my week now!",
+  },
+  {
+    name: "Evelina",
+    text: "I usually stay quiet in groups but this felt so safe and fun!!! Honestly one of the best things I’ve joined.",
+  },
+  {
+    name: "Marva",
+    text: "Came alone and was sooo nervous, but I felt at home right away!",
+  },
+  {
+    name: "James",
+    text: "This group really came out of nowhere but has quickly become the main event of my week.",
+  },
+  {
+    name: "Jeffrey",
+    text: "Super fun dodgeball club! It reminds me of gym class in school. Very welcoming and chill vibe.",
+  },
 ];
 
 const ReviewCard = ({ name, text }) => (
@@ -52,12 +77,18 @@ export default function Reviews() {
   const dragX2 = useMotionValue(0);
 
   // ✅ Scroll-based horizontal movement
-  const scrollOffset1 = useTransform(scrollY, (val) => -val * 0.2);  
-  const scrollOffset2 = useTransform(scrollY, (val) => val * 0.2);  
+  const scrollOffset1 = useTransform(scrollY, (val) => -val * 0.2);
+  const scrollOffset2 = useTransform(scrollY, (val) => val * 0.2);
 
   // Combine drag + scroll
-  const x1 = useTransform([dragX1, scrollOffset1], ([drag, scroll]) => drag + scroll);
-  const x2 = useTransform([dragX2, scrollOffset2], ([drag, scroll]) => drag + scroll);
+  const x1 = useTransform(
+    [dragX1, scrollOffset1],
+    ([drag, scroll]) => drag + scroll
+  );
+  const x2 = useTransform(
+    [dragX2, scrollOffset2],
+    ([drag, scroll]) => drag + scroll
+  );
 
   // Split reviews
   const half = Math.ceil(reviews.length / 2);
@@ -73,7 +104,8 @@ export default function Reviews() {
           <div style={styles.subheading}>What others say</div>
           <div style={styles.title}>Experiences from our Dodgers</div>
           <div style={styles.subtitle}>
-            A sport that <strong style={{ color: "white" }}>connects</strong>. A community that{" "}
+            A sport that <strong style={{ color: "white" }}>connects</strong>. A
+            community that{" "}
             <strong style={{ color: "white" }}>makes you smile</strong>.
           </div>
         </div>
@@ -87,18 +119,25 @@ export default function Reviews() {
               style={{ ...styles.marqueeInner, x: x1 }}
             >
               {row1.map((r, i) =>
-                r.isWriteCard ? <WriteReviewCard key="write" /> : <ReviewCard key={`r1-${i}`} {...r} />
+                r.isWriteCard ? (
+                  <WriteReviewCard key="write" />
+                ) : (
+                  <ReviewCard key={`r1-${i}`} {...r} />
+                )
               )}
             </motion.div>
           </div>
 
           {/* ✅ Bottom Row - Scrolls left */}
           <div style={styles.marqueeOuter}>
-<motion.div
-  drag="x"
-  dragConstraints={{ left: -1000, right: 0 }}
-  style={{ ...styles.marqueeInner, x: useTransform(x2, value => value - window.innerWidth / 1) }}
->
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: -1000, right: 0 }}
+              style={{
+                ...styles.marqueeInner,
+                x: useTransform(x2, (value) => value - window.innerWidth / 1),
+              }}
+            >
               {row2.map((r, i) => (
                 <ReviewCard key={`r2-${i}`} {...r} />
               ))}
@@ -112,6 +151,7 @@ export default function Reviews() {
 
 const styles = {
   section: {
+    minHeight: "100vh",
     padding: "64px 16px",
     textAlign: "center",
     background: "#0d0c0b",

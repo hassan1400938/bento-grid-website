@@ -5,7 +5,6 @@
     <title>My Events</title>
     <style>
       body {
-        margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,7 +42,7 @@
         flex-shrink: 0;
       }
       .calendar-icon {
-        color: #e67e22; /* Changed to orange */
+        color: #e67e22;
         margin-right: 6px;
         font-size: 16px;
       }
@@ -76,7 +75,7 @@
         flex-shrink: 0;
       }
       .event-time {
-        color: #e67e22; /* Changed to orange */
+        color: #e67e22;
         font-size: 10px;
         font-weight: 500;
         margin-bottom: 2px;
@@ -94,7 +93,7 @@
         flex-shrink: 0;
       }
       .view-link {
-        color: #e67e22; /* Changed to orange */
+        color: #e67e22;
         font-size: 10px;
         text-decoration: none;
         display: inline-block;
@@ -141,7 +140,6 @@
     </div>
 
     <script>
-      // Configuration
       const CALENDAR_ID = "gronsdodgeball@gmail.com";
       const API_KEY = "AIzaSyCAllpV5h0oZ0Pklsq4_CBjaCt-8HDhSuY";
       const MAX_EVENTS = 10;
@@ -210,13 +208,17 @@
 
       function formatTime(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        const optionsDate = {
+          weekday: "short",
+          day: "2-digit",
+          month: "short",
+        };
+        const optionsTime = { hour: "2-digit", minute: "2-digit" };
+        const formattedDate = date.toLocaleDateString(undefined, optionsDate); // e.g. "Sat, 27 Jul"
+        const formattedTime = date.toLocaleTimeString([], optionsTime); // e.g. "13:00"
+        return `${formattedDate} – ${formattedTime}`;
       }
 
-      // Initialize
       document.addEventListener("DOMContentLoaded", loadEvents);
     </script>
   </body>

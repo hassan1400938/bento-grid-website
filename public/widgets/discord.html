@@ -12,6 +12,14 @@
         --discord-gray: #4f545c;
         --discord-green: #57f287;
       }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: "Segoe UI", Helvetica, sans-serif;
+      }
       html,
       body {
         margin: 0;
@@ -20,15 +28,6 @@
         width: 100%;
         height: 100%;
       }
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        /* background: #f0f2f5; */
-        font-family: "Segoe UI", Helvetica, sans-serif;
-      }
-
       .widget-container {
         width: 160px;
         height: 160px;
@@ -144,17 +143,6 @@
         box-shadow: 0 4px 8px rgba(88, 101, 242, 0.3);
       }
 
-      .secondary-btn {
-        background: var(--discord-gray);
-        box-shadow: 0 2px 4px rgba(79, 84, 92, 0.2);
-      }
-
-      .secondary-btn:hover {
-        background: #5d6269;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(79, 84, 92, 0.3);
-      }
-
       .icon {
         width: 16px;
         height: 16px;
@@ -199,68 +187,6 @@
           transform: translateX(100%) rotate(30deg);
         }
       }
-
-      /* Modal styles */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 100;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .modal-content {
-        background: var(--discord-dark);
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 400px;
-        color: white;
-      }
-
-      .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      .modal-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--discord-green);
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-      }
-
-      .server-details {
-        margin-bottom: 15px;
-        line-height: 1.5;
-      }
-
-      .join-btn {
-        background: var(--discord-blurple);
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        display: block;
-        width: 100%;
-        font-weight: 600;
-        margin-top: 10px;
-      }
     </style>
   </head>
   <body>
@@ -273,7 +199,7 @@
           <div class="back-header">Join Our Server</div>
           <div class="action-buttons">
             <a
-              href="https://discord.gg/qw6RUxxG"
+              href="https://discord.gg/F6ZXUcdb"
               target="_blank"
               class="discord-btn primary-btn"
             >
@@ -289,64 +215,9 @@
               </svg>
               Join Now
             </a>
-            <button class="discord-btn secondary-btn" id="moreInfoBtn">
-              <svg
-                class="icon"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-                />
-              </svg>
-              More Info
-            </button>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- More Info Modal -->
-    <div class="modal" id="infoModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="modal-title">Server Information</div>
-          <button class="close-btn" id="closeModal">&times;</button>
-        </div>
-        <div class="server-details">
-          <p><strong>Welcome to our community!</strong></p>
-          <p>• Friendly and active members</p>
-          <p>• Regular events and discussions</p>
-          <p>• Helpful support channels</p>
-          <p>• Custom roles and perks</p>
-        </div>
-        <a href="https://discord.gg/qw6RUxxG" target="_blank" class="join-btn">
-          Join Server Now
-        </a>
-      </div>
-    </div>
-
-    <script>
-      // Modal functionality
-      const moreInfoBtn = document.getElementById("moreInfoBtn");
-      const closeModal = document.getElementById("closeModal");
-      const infoModal = document.getElementById("infoModal");
-
-      moreInfoBtn.addEventListener("click", () => {
-        infoModal.style.display = "flex";
-      });
-
-      closeModal.addEventListener("click", () => {
-        infoModal.style.display = "none";
-      });
-
-      // Close modal when clicking outside
-      window.addEventListener("click", (event) => {
-        if (event.target === infoModal) {
-          infoModal.style.display = "none";
-        }
-      });
-    </script>
   </body>
 </html>
