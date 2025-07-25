@@ -282,7 +282,7 @@ export default function TermsOfService() {
       for (let i = 0; i < dotCount; i++) {
   const x = Math.random() * w;
   const y = Math.random() * h;
-  const radius = Math.random() * 0.4 + 0.5;
+  const radius = Math.random() * 0.5 + 0.5;
   const alpha = Math.random() * 0.2 + 0.1;
 
   // Randomly pick black or orange
