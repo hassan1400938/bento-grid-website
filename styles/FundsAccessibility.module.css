@@ -5,6 +5,7 @@
   --muted: #7d7c77;
   --green: #3ab97a;
   --black: #111111;
+  z-index: 10000;
 }
 
 .container {
@@ -170,7 +171,7 @@
   backdrop-filter: blur(3px);
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1000000;
 }
 
 .modal > div {

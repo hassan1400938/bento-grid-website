@@ -54,39 +54,6 @@ export default function PricingPlans() {
       );
   }, []);
 
-  // Animate tab change with smooth fade out/in + stagger fade in
-  useEffect(() => {
-    const cardsToHide =
-      activeTab === "adult" ? youthRef.current : adultRef.current;
-    const cardsToShow =
-      activeTab === "adult" ? adultRef.current : youthRef.current;
-
-    // Fade out other tab cards
-    gsap.to(cardsToHide, {
-      opacity: 0,
-      y: 40,
-      duration: 0.4,
-      ease: "power2.in",
-      pointerEvents: "none",
-      stagger: 0.1,
-    });
-
-    // Fade in active tab cards after a slight delay
-    gsap.fromTo(
-      cardsToShow,
-      { opacity: 0, y: 40, pointerEvents: "auto" },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        stagger: 0.15,
-        pointerEvents: "auto",
-        delay: 0.45,
-      }
-    );
-  }, [activeTab]);
-
   return (
     <div className={`${styles.pricing} relative`}>
       <div className="absolute -top-[2px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">

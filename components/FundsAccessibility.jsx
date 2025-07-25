@@ -68,15 +68,6 @@ export default function FundsAccessibility() {
   const openModal = () => {
     setModalVisible(true);
     setSubmitted(false);
-    setTimeout(() => {
-      nameRef.current?.focus();
-      gsap.from(`.${styles.modal} > div`, {
-        scale: 0.9,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    }, 100);
   };
 
   const closeModal = () => setModalVisible(false);
@@ -101,7 +92,7 @@ export default function FundsAccessibility() {
       ref={sectionRef}
       className={`${styles.fundsAccessibility} relative z-[50]`}
     >
-      <div className="absolute -top-[3px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
+      <div className="absolute -top-[3px] sm:-top-[4px] md:-top-[7px] z-[50] left-0 w-full">
         <svg
           viewBox="0 0 1440 14"
           xmlns="http://www.w3.org/2000/svg"
