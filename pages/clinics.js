@@ -14,97 +14,109 @@ export default function ClinicsPage() {
 
   // ✅ Canvas noise effect (same as YouthPage)
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
-  
-    const setSize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      ctx.scale(dpr, dpr);
-    };
-    setSize();
-    window.addEventListener("resize", setSize);
-  
-    let animationFrame;
-    let lastDraw = 0;
-    const fps = 12;
-    const interval = 1000 / fps;
-    let isAnimating = false;
-    let inactivityTimeout;
-  
-   const drawNoise = () => {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+    
+      const setSize = () => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.scale(dpr, dpr);
+      };
+      setSize();
+      window.addEventListener("resize", setSize);
+    
+      let animationFrame;
+      let lastDraw = 0;
+      const fps = 12;
+      const interval = 1000 / fps;
+      let isAnimating = false;
+      let inactivityTimeout;
+    
+      const drawNoise = () => {
         const w = canvas.width / dpr;
         const h = canvas.height / dpr;
         ctx.clearRect(0, 0, w, h);
     
-        const dotCount = 1500;
-        for (let i = 0; i < dotCount; i++) {
-          const x = Math.random() * w;
-          const y = Math.random() * h;
-          const radius = Math.random() * 1 + 0.5;
-          const alpha = Math.random() * 0.2 + 0.1;
-      
-  const r = Math.floor(Math.random() * 55);    // full color range
-  const g = Math.floor(Math.random() * 55);
-  const b = Math.floor(Math.random() * 55);
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-          ctx.fill();
+        const dotCount = 1000;
+      for (let i = 0; i < dotCount; i++) {
+  const x = Math.random() * w;
+  const y = Math.random() * h;
+  const radius = Math.random() * 0.5 + 0.5;
+  const alpha = Math.random() * 0.2 + 0.1;
+
+  // Randomly pick black or orange
+  const isOrange = Math.random() < 0.5; // 50% chance
+  let r, g, b;
+
+  if (isOrange) {
+    r = 255;
+    g = 165;
+    b = 0;
+  } else {
+    r = 0;
+    g = 0;
+    b = 0;
+  }
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  ctx.fill();
+}
+
+      };
+    
+      const loop = (now) => {
+        if (now - lastDraw > interval) {
+          drawNoise();
+          lastDraw = now;
+        }
+        animationFrame = requestAnimationFrame(loop);
+      };
+    
+      const startAnimation = () => {
+        if (!isAnimating) {
+          isAnimating = true;
+          setShowCanvas(true);
+          animationFrame = requestAnimationFrame(loop);
+        }
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(stopAnimation, 30); // stop if no activity for 800ms
+      };
+    
+      const stopAnimation = () => {
+        if (isAnimating) {
+          cancelAnimationFrame(animationFrame);
+          isAnimating = false;
         }
       };
-  
-    const loop = (now) => {
-      if (now - lastDraw > interval) {
-        drawNoise();
-        lastDraw = now;
-      }
-      animationFrame = requestAnimationFrame(loop);
-    };
-  
-    const startAnimation = () => {
-      if (!isAnimating) {
-        isAnimating = true;
-        setShowCanvas(true);
-        animationFrame = requestAnimationFrame(loop);
-      }
-      clearTimeout(inactivityTimeout);
-      inactivityTimeout = setTimeout(stopAnimation, 800); // stop if no activity for 800ms
-    };
-  
-    const stopAnimation = () => {
-      if (isAnimating) {
+    
+      // Events that trigger animation
+      const handleUserActivity = () => {
+        startAnimation();
+      };
+    
+      window.addEventListener("mousemove", handleUserActivity);
+      window.addEventListener("scroll", handleUserActivity);
+      window.addEventListener("wheel", handleUserActivity);
+    
+      // Draw one static frame at start
+      drawNoise();
+    
+      return () => {
         cancelAnimationFrame(animationFrame);
-        isAnimating = false;
-      }
-    };
-  
-    // Events that trigger animation
-    const handleUserActivity = () => {
-      startAnimation();
-    };
-  
-    window.addEventListener("mousemove", handleUserActivity);
-    window.addEventListener("scroll", handleUserActivity);
-    window.addEventListener("wheel", handleUserActivity);
-  
-    // Draw one static frame at start
-    drawNoise();
-  
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      clearTimeout(inactivityTimeout);
-      window.removeEventListener("resize", setSize);
-      window.removeEventListener("mousemove", handleUserActivity);
-      window.removeEventListener("scroll", handleUserActivity);
-      window.removeEventListener("wheel", handleUserActivity);
-    };
-  }, []);
+        clearTimeout(inactivityTimeout);
+        window.removeEventListener("resize", setSize);
+        window.removeEventListener("mousemove", handleUserActivity);
+        window.removeEventListener("scroll", handleUserActivity);
+        window.removeEventListener("wheel", handleUserActivity);
+      };
+    }, []);
 
   // ✅ Set min date on mount
   useEffect(() => {
