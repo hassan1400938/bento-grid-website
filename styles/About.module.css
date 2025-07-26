@@ -3,15 +3,15 @@
   --text: #0d0c0b;
   --muted: #7d7c77;
   --black: #111111;
-
-  /* background: var(--bg); */
+  min-height: "100vh";
+  background: var(--bg);
   color: var(--text);
   font-family: "Inter", sans-serif;
   padding: 40px 20px;
   line-height: 1.6;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100vh;
   width: 100%;
 }

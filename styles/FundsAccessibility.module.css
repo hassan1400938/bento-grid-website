@@ -6,10 +6,15 @@
   --green: #3ab97a;
   --black: #111111;
   z-index: 10000;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  /* background: var(--bg); */
   font-family: "Inter", sans-serif;
   color: var(--text);
   padding: 40px 20px;

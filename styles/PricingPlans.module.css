@@ -5,6 +5,11 @@
   --muted: #7d7c77;
   --green: #3ab97a;
   --black: #111111;
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .pricingPlan {
   font-family: "Inter", sans-serif;

@@ -5,6 +5,9 @@
   --text: #0d0c0b;
   --accent: #f57f3b;
   --muted: #888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .section {

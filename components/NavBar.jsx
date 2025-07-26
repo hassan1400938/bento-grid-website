@@ -62,8 +62,26 @@ const NavBar = () => {
         d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"
       />
     </svg>,
-  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g fill="none"><g clipPath="url(#primeTwitter0)"><path fill="currentColor" d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"/></g><defs><clipPath id="primeTwitter0"><path fill="#fff" d="M0 0h14v14H0z"/></clipPath></defs></g></svg>
-  ,
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+    >
+      <g fill="none">
+        <g clipPath="url(#primeTwitter0)">
+          <path
+            fill="currentColor"
+            d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"
+          />
+        </g>
+        <defs>
+          <clipPath id="primeTwitter0">
+            <path fill="#fff" d="M0 0h14v14H0z" />
+          </clipPath>
+        </defs>
+      </g>
+    </svg>,
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -227,7 +245,7 @@ const NavBar = () => {
 
     tl.to(
       linkRefs.current[index],
-      {  duration: 0.3, ease: "power2.inOut" },
+      { duration: 0.3, ease: "power2.inOut" },
       "-=0.2"
     );
   };
@@ -316,7 +334,7 @@ const NavBar = () => {
                     <a
                       href={link.href}
                       ref={(el) => (linkRefs.current[index] = el)}
-                      className="text-xl hover:pl-6 transition-all duration-600 leading-none sm:text-[5vh] lg:text-[6.8vh] font-semibold block w-fit"
+                      className="text-5xl hover:pl-6 transition-all duration-600 leading-none sm:text-3xl lg:text-5xl font-bebas-neue font-bold block w-fit"
                     >
                       {link.label}
                       <div
@@ -330,40 +348,40 @@ const NavBar = () => {
                     </a>
                   ) : (
                     <Link
-  href={link.href}
-  ref={(el) => (linkRefs.current[index] = el)}
-  onClick={(e) => {
-    const isSectionLink = link.href.startsWith("/#");
-    if (isSectionLink) {
-      e.preventDefault();
-      const [path, hash] = link.href.split("#");
-      if (window.location.pathname !== path) {
-        // Navigate to homepage first, then scroll to section
-        window.location.href = link.href;
-      } else {
-        // Already on homepage, scroll smoothly
-        const target = document.getElementById(hash);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-      setTimeout(() => {
-        closeMenu();
-      }, 600);
-    }
-  }}
-  className="text-xl leading-none hover:pl-6 transition-all duration-600 sm:text-[5vh] lg:text-[6.8vh] font-semibold block w-fit"
->
-  {link.label}
-  <div
-    ref={(el) => (boxRefs.current[index] = el)}
-    className="absolute top-0 left-0 h-full bg-[#F1EEE7]/90 z-0"
-    style={{
-      width: "100%",
-      transform: "translateX(-100%)",
-    }}
-  />
-</Link>
+                      href={link.href}
+                      ref={(el) => (linkRefs.current[index] = el)}
+                      onClick={(e) => {
+                        const isSectionLink = link.href.startsWith("/#");
+                        if (isSectionLink) {
+                          e.preventDefault();
+                          const [path, hash] = link.href.split("#");
+                          if (window.location.pathname !== path) {
+                            // Navigate to homepage first, then scroll to section
+                            window.location.href = link.href;
+                          } else {
+                            // Already on homepage, scroll smoothly
+                            const target = document.getElementById(hash);
+                            if (target) {
+                              target.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }
+                          setTimeout(() => {
+                            closeMenu();
+                          }, 600);
+                        }
+                      }}
+                      className="text-xl leading-none hover:pl-6 transition-all duration-600 sm:text-3xl lg:text-5xl block w-fit font-bebas-neue font-bold"
+                    >
+                      {link.label}
+                      <div
+                        ref={(el) => (boxRefs.current[index] = el)}
+                        className="absolute top-0 left-0 h-full bg-[#F1EEE7]/90 z-0"
+                        style={{
+                          width: "100%",
+                          transform: "translateX(-100%)",
+                        }}
+                      />
+                    </Link>
                   )}
                 </div>
               </div>

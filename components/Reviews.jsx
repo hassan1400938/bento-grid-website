@@ -77,8 +77,8 @@ export default function Reviews() {
   const dragX2 = useMotionValue(0);
 
   // ✅ Scroll-based horizontal movement
-  const scrollOffset1 = useTransform(scrollY, (val) => -val * 0.2);
-  const scrollOffset2 = useTransform(scrollY, (val) => val * 0.2);
+  const scrollOffset1 = useTransform(scrollY, (val) => val * 0);
+  const scrollOffset2 = useTransform(scrollY, (val) => val * 0.4);
 
   // Combine drag + scroll
   const x1 = useTransform(
@@ -170,6 +170,10 @@ const styles = {
     color: "#fff",
     fontFamily: "'Inter', sans-serif",
     overflow: "hidden",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
   },
   stars: {
     color: "#f57f3b",
