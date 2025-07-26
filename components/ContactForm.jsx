@@ -167,7 +167,7 @@ export default function ContactForm() {
       </div>
 
       <div
-        className={`${styles.container} ${styles.contact} relative z-50`}
+        className={`${styles.container} ${styles.contact}`}
         ref={containerRef}
       >
         <a href="https://rfdd.ru/" target="_blank" rel="noreferrer">
@@ -179,7 +179,7 @@ export default function ContactForm() {
         {!submitted ? (
           <form
             id="form"
-            className={styles.form}
+            className={`${styles.form} relative z-50`}
             action="https://formspree.io/f/xovwnnpe"
             method="POST"
             onSubmit={handleSubmit}

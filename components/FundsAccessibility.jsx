@@ -90,7 +90,7 @@ export default function FundsAccessibility() {
   return (
     <div
       ref={sectionRef}
-      className={`${styles.fundsAccessibility} relative z-[50]`}
+      className={`${styles.fundsAccessibility} `}
     >
       <div className="absolute -top-[3px] sm:-top-[4px] md:-top-[7px] z-[50] left-0 w-full">
         <svg

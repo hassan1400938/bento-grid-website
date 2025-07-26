@@ -70,24 +70,118 @@ export default function Partners() {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const screenWidth = window.innerWidth;
+    // Inertial, smooth draggable effect for partner rows (improved)
+    const rowIds = ["row1", "row2", "row3"];
+    const translations = { row1: 0, row2: 0, row3: 0 };
+    let isDragging = false;
+    let startX = 0;
+    let currentRow = null;
+    let currentRowId = null;
+    let lastTranslate = 0;
+    let lastX = 0;
+    let velocity = 0;
+    let animationFrame;
+    let rafMove;
+    let pendingTranslate = null;
 
-      const r1 = document.getElementById("row1");
-      const r2 = document.getElementById("row2");
-      const r3 = document.getElementById("row3");
+    const getRow = (e) => e.target.closest('[id^="row"]');
 
-      if (r1)
-        r1.style.transform = `translateX(${(scrollY * -0.5) % screenWidth}px)`;
-      if (r2)
-        r2.style.transform = `translateX(${(scrollY * 0.3) % screenWidth}px)`;
-      if (r3)
-        r3.style.transform = `translateX(${(scrollY * -0.2) % screenWidth}px)`;
+    // Apply transform in a single rAF loop
+    const applyTransform = () => {
+      if (currentRow && pendingTranslate !== null) {
+        currentRow.style.transform = `translateX(${pendingTranslate}px)`;
+        pendingTranslate = null;
+      }
+      if (isDragging) {
+        rafMove = requestAnimationFrame(applyTransform);
+      } else {
+        rafMove = null;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const animateInertia = () => {
+      if (!currentRowId) return;
+      velocity *= 0.92; // slightly more friction for natural feel
+      translations[currentRowId] += velocity;
+      const row = document.getElementById(currentRowId);
+      if (row) {
+        row.style.transform = `translateX(${translations[currentRowId]}px)`;
+      }
+      if (Math.abs(velocity) > 0.3) {
+        animationFrame = requestAnimationFrame(animateInertia);
+      } else {
+        velocity = 0;
+        animationFrame = null;
+      }
+    };
+
+    const handlePointerDown = (e) => {
+      const row = getRow(e);
+      if (!row) return;
+      isDragging = true;
+      startX = e.pageX;
+      lastX = e.pageX;
+      currentRow = row;
+      currentRowId = row.id;
+      lastTranslate = translations[currentRowId] || 0;
+      row.style.cursor = 'grabbing';
+      row.style.transition = 'none';
+      document.body.style.userSelect = 'none';
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      if (!rafMove) {
+        rafMove = requestAnimationFrame(applyTransform);
+      }
+    };
+
+    const handlePointerMove = (e) => {
+      if (!isDragging || !currentRow) return;
+      e.preventDefault();
+      const x = e.pageX - startX;
+      const newTranslate = lastTranslate + x;
+      translations[currentRowId] = newTranslate;
+      velocity = e.pageX - lastX;
+      lastX = e.pageX;
+      pendingTranslate = newTranslate;
+    };
+
+    const handlePointerUp = () => {
+      if (currentRow) {
+        currentRow.style.cursor = 'grab';
+        currentRow.style.transition = 'none';
+      }
+      isDragging = false;
+      document.body.style.userSelect = '';
+      if (currentRowId && Math.abs(velocity) > 0) {
+        animationFrame = requestAnimationFrame(animateInertia);
+      }
+      currentRow = null;
+      currentRowId = null;
+      pendingTranslate = null;
+      if (rafMove) {
+        cancelAnimationFrame(rafMove);
+        rafMove = null;
+      }
+    };
+
+    // Use pointer events for better cross-device support
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerup', handlePointerUp);
+    document.addEventListener('pointerleave', handlePointerUp);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerup', handlePointerUp);
+      document.removeEventListener('pointerleave', handlePointerUp);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      if (rafMove) cancelAnimationFrame(rafMove);
+      document.body.style.userSelect = '';
+    };
   }, []);
 
   const rows = {
@@ -173,8 +267,9 @@ export default function Partners() {
             <div
               key={id}
               id={id}
-              className={`${styles.rowWrapper} flex items-center justify-center`}
+              className={`${styles.rowWrapper} flex items-center justify-center cursor-grab select-none`}
               ref={(el) => (rowsRef.current[i] = el)}
+              style={{ cursor: 'grab' }}
             >
               {Array(4)
                 .fill(images)

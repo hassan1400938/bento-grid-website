@@ -17,6 +17,7 @@
 
 .container {
   color: var(--text);
+  background: var(--bg);
   margin: 0;
   padding: 0;
   display: flex;
