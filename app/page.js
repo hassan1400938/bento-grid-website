@@ -44,111 +44,109 @@ export default function HomePage() {
   }, []);
 
   // Canvas animation setup
-   useEffect(() => {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      const dpr = window.devicePixelRatio || 1;
-    
-      const setSize = () => {
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        canvas.style.width = w + "px";
-        canvas.style.height = h + "px";
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-        ctx.scale(dpr, dpr);
-      };
-      setSize();
-      window.addEventListener("resize", setSize);
-    
-      let animationFrame;
-      let lastDraw = 0;
-      const fps = 12;
-      const interval = 1000 / fps;
-      let isAnimating = false;
-      let inactivityTimeout;
-    
-      const drawNoise = () => {
-        const w = canvas.width / dpr;
-        const h = canvas.height / dpr;
-        ctx.clearRect(0, 0, w, h);
-    
-        const dotCount = 1000;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+
+    const setSize = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.scale(dpr, dpr);
+    };
+    setSize();
+    window.addEventListener("resize", setSize);
+
+    let animationFrame;
+    let lastDraw = 0;
+    const fps = 12;
+    const interval = 1000 / fps;
+    let isAnimating = false;
+    let inactivityTimeout;
+
+    const drawNoise = () => {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+
+      const dotCount = 1000;
       for (let i = 0; i < dotCount; i++) {
-  const x = Math.random() * w;
-  const y = Math.random() * h;
-  const radius = Math.random() * 0.5 + 0.5;
-  const alpha = Math.random() * 0.2 + 0.1;
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+        const radius = Math.random() * 0.5 + 0.5;
+        const alpha = Math.random() * 0.2 + 0.1;
 
-  // Randomly pick black or orange
-  const isOrange = Math.random() < 0.5; // 50% chance
-  let r, g, b;
+        // Randomly pick black or orange
+        const isOrange = Math.random() < 0.5; // 50% chance
+        let r, g, b;
 
-  if (isOrange) {
-    r = 255;
-    g = 165;
-    b = 0;
-  } else {
-    r = 0;
-    g = 0;
-    b = 0;
-  }
-
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
-  ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  ctx.fill();
-}
-
-      };
-    
-      const loop = (now) => {
-        if (now - lastDraw > interval) {
-          drawNoise();
-          lastDraw = now;
+        if (isOrange) {
+          r = 255;
+          g = 165;
+          b = 0;
+        } else {
+          r = 0;
+          g = 0;
+          b = 0;
         }
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        ctx.fill();
+      }
+    };
+
+    const loop = (now) => {
+      if (now - lastDraw > interval) {
+        drawNoise();
+        lastDraw = now;
+      }
+      animationFrame = requestAnimationFrame(loop);
+    };
+
+    const startAnimation = () => {
+      if (!isAnimating) {
+        isAnimating = true;
+        setShowCanvas(true);
         animationFrame = requestAnimationFrame(loop);
-      };
-    
-      const startAnimation = () => {
-        if (!isAnimating) {
-          isAnimating = true;
-          setShowCanvas(true);
-          animationFrame = requestAnimationFrame(loop);
-        }
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(stopAnimation, 30); // stop if no activity for 800ms
-      };
-    
-      const stopAnimation = () => {
-        if (isAnimating) {
-          cancelAnimationFrame(animationFrame);
-          isAnimating = false;
-        }
-      };
-    
-      // Events that trigger animation
-      const handleUserActivity = () => {
-        startAnimation();
-      };
-    
-      window.addEventListener("mousemove", handleUserActivity);
-      window.addEventListener("scroll", handleUserActivity);
-      window.addEventListener("wheel", handleUserActivity);
-    
-      // Draw one static frame at start
-      drawNoise();
-    
-      return () => {
-        cancelAnimationFrame(animationFrame);
-        clearTimeout(inactivityTimeout);
-        window.removeEventListener("resize", setSize);
-        window.removeEventListener("mousemove", handleUserActivity);
-        window.removeEventListener("scroll", handleUserActivity);
-        window.removeEventListener("wheel", handleUserActivity);
-      };
-    }, []);
+      }
+      clearTimeout(inactivityTimeout);
+      inactivityTimeout = setTimeout(stopAnimation, 30); // stop if no activity for 800ms
+    };
 
+    const stopAnimation = () => {
+      if (isAnimating) {
+        cancelAnimationFrame(animationFrame);
+        isAnimating = false;
+      }
+    };
+
+    // Events that trigger animation
+    const handleUserActivity = () => {
+      startAnimation();
+    };
+
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("scroll", handleUserActivity);
+    window.addEventListener("wheel", handleUserActivity);
+
+    // Draw one static frame at start
+    drawNoise();
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      clearTimeout(inactivityTimeout);
+      window.removeEventListener("resize", setSize);
+      window.removeEventListener("mousemove", handleUserActivity);
+      window.removeEventListener("scroll", handleUserActivity);
+      window.removeEventListener("wheel", handleUserActivity);
+    };
+  }, []);
 
   // Load more widgets on intersection
   useEffect(() => {
@@ -271,28 +269,16 @@ export default function HomePage() {
           <div id="partner" className="min-h-[100vh]" ref={addToSectionRefs}>
             <Partners />
           </div>
-          <div
-            id="about"
-            className="bg-[#f1eee7] min-h-[100vh]"
-            ref={addToSectionRefs}
-          >
+          <div id="about" ref={addToSectionRefs}>
             <About />
           </div>
-          <div id="sessions" className="min-h-[100vh]" ref={addToSectionRefs}>
+          <div id="sessions" ref={addToSectionRefs}>
             <UpcomingSessions />
           </div>
-          <div
-            id="memberships"
-            className="min-h-[100vh]"
-            ref={addToSectionRefs}
-          >
+          <div id="memberships" ref={addToSectionRefs}>
             <PricingPlans />
           </div>
-          <div
-            id="funds"
-            className="bg-[#f1eee7] min-h-[100vh]"
-            ref={addToSectionRefs}
-          >
+          <div id="funds" ref={addToSectionRefs}>
             <FundsAccessibility />
           </div>
           {/* <div
@@ -312,14 +298,10 @@ export default function HomePage() {
           <div id="reviews" ref={addToSectionRefs}>
             <Reviews />
           </div>
-          <div id="faq" className="min-h-[100vh]" ref={addToSectionRefs}>
+          <div id="faq" ref={addToSectionRefs}>
             <FAQ />
           </div>
-          <div
-            id="contact"
-            className="bg-[#f1eee7] min-h-[100vh]"
-            ref={addToSectionRefs}
-          >
+          <div id="contact" ref={addToSectionRefs}>
             <ContactForm />
           </div>
           <div id="footer" ref={addToSectionRefs}>

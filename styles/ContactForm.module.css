@@ -8,10 +8,14 @@
   --placeholder-focus: #bbb5af;
   --placeholder-hover: #e2dedb;
   --placeholder-hover-focus: #cbc6c1;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  /* background: var(--bg); */
   color: var(--text);
   margin: 0;
   padding: 0;

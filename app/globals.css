@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("/fonts/bebas-neue.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+.font-bebas-neue {
+  font-family: "Bebas Neue", cursive;
+}
+
 html,
 body {
   font-family: "Inter", sans-serif;
@@ -63,7 +74,6 @@ body {
     clip-path: inset(0 0 0 0);
   }
 }
-
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .marqueeInner::-webkit-scrollbar {

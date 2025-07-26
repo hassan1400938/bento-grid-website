@@ -21,3 +21,15 @@
 //   },
 //   plugins: [],
 // };
+
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        // This enables font-bebas-neue as a utility class in Tailwind
+        "bebas-neue": ['"Bebas Neue"', "cursive"], // second argument is fallback
+      },
+    },
+  },
+  // Add any other config as you need
+};

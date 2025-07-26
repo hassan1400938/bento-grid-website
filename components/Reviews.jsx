@@ -153,6 +153,10 @@ const styles = {
     color: "#fff",
     fontFamily: "'Inter', sans-serif",
     overflow: "hidden",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
   },
   stars: {
     color: "#f57f3b",
