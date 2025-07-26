@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 
 const reviews = [
   {
@@ -69,26 +69,9 @@ const WriteReviewCard = () => (
 export default function Reviews() {
   const containerRef = useRef(null);
 
-  // Page scroll value
-  const { scrollY } = useScroll();
-
   // Manual drag values
   const dragX1 = useMotionValue(0);
   const dragX2 = useMotionValue(0);
-
-  // ✅ Scroll-based horizontal movement
-  const scrollOffset1 = useTransform(scrollY, (val) => -val * 0.2);
-  const scrollOffset2 = useTransform(scrollY, (val) => val * 0.2);
-
-  // Combine drag + scroll
-  const x1 = useTransform(
-    [dragX1, scrollOffset1],
-    ([drag, scroll]) => drag + scroll
-  );
-  const x2 = useTransform(
-    [dragX2, scrollOffset2],
-    ([drag, scroll]) => drag + scroll
-  );
 
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -123,12 +106,12 @@ export default function Reviews() {
         </div>
 
         <div style={styles.marqueeWrapper}>
-          {/* ✅ Top Row - Scrolls right */}
+          {/* ✅ Top Row - Only drag, no scroll effect */}
           <div style={styles.marqueeOuter}>
             <motion.div
               drag="x"
               dragConstraints={{ left: -1000, right: 0 }}
-              style={{ ...styles.marqueeInner, x: x1 }}
+              style={{ ...styles.marqueeInner, x: dragX1 }}
             >
               {row1.map((r, i) =>
                 r.isWriteCard ? (
@@ -140,14 +123,14 @@ export default function Reviews() {
             </motion.div>
           </div>
 
-          {/* ✅ Bottom Row - Scrolls left */}
+          {/* ✅ Bottom Row - Only drag, no scroll effect */}
           <div style={styles.marqueeOuter}>
             <motion.div
               drag="x"
               dragConstraints={{ left: -1000, right: 0 }}
               style={{
                 ...styles.marqueeInner,
-                x: useTransform(x2, (value) => value - windowWidth / 1),
+                x: dragX2,
               }}
             >
               {row2.map((r, i) => (
