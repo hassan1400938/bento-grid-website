@@ -113,7 +113,7 @@ export default function About() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative z-[50] ">
+    <div ref={sectionRef} className=" ">
       {/* Decorative Top Curve */}
 
       <div className="absolute -top-[2px] sm:-top-[4px] md:-top-[7px] z-[70] left-0 w-full">
